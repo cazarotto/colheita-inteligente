@@ -28,8 +28,8 @@ const moreGroups = [
     label: "Produção",
     items: [
       { label: "Talhões", icon: Map, path: "/talhoes" },
-      { label: "Planejamento", icon: CalendarCheck, path: "/planejamento" },
-      { label: "Pulverizações", icon: SprayCan, path: "/pulverizacoes" },
+      { label: "Safras", icon: Wheat, path: "/safras" },
+      { label: "Pulverizações", icon: Droplets, path: "/pulverizacoes" },
       { label: "Produção", icon: Factory, path: "/producao" },
     ],
   },
