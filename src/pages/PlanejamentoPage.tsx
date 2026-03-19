@@ -3,17 +3,24 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter, DialogDescription } from "@/components/ui/dialog";
 import { DataTable } from "@/components/DataTable";
 import { StatusBadge } from "@/components/StatusBadge";
-import { Plus, CalendarCheck } from "lucide-react";
+import { Plus, CalendarCheck, MapPin, FlaskConical, Users } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { cn } from "@/lib/utils";
 
 const planejamentos = [
   { id: "1", operacao: "Plantio Soja", talhao: "T-01 Cerrado", insumo: "Semente TMG 2381", operador: "João Silva", maquina: "John Deere 8R", dataInicio: "15/03/2026", status: "em_andamento" as const },
   { id: "2", operacao: "Adubação", talhao: "T-05 Chapada", insumo: "MAP 10-46-00", operador: "Pedro Santos", maquina: "MF 8737", dataInicio: "16/03/2026", status: "pendente" as const },
   { id: "3", operacao: "Pulverização", talhao: "T-03 Barreiro", insumo: "Roundup WG", operador: "Carlos Mendes", maquina: "Uniport 3030", dataInicio: "18/03/2026", status: "pendente" as const },
+];
+
+const steps = [
+  { num: 1, label: "Local", icon: MapPin },
+  { num: 2, label: "Insumos", icon: FlaskConical },
+  { num: 3, label: "Equipe", icon: Users },
 ];
 
 export default function PlanejamentoPage() {
@@ -34,25 +41,53 @@ export default function PlanejamentoPage() {
         actions={
           <Dialog open={open} onOpenChange={(v) => { setOpen(v); if (!v) setStep(1); }}>
             <DialogTrigger asChild>
-              <Button size="sm">
-                <Plus className="h-4 w-4 mr-1" strokeWidth={2.5} />
+              <Button size="sm" className="gap-1.5">
+                <Plus className="h-4 w-4" strokeWidth={2.5} />
                 Nova Operação
               </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-md">
+            <DialogContent className="sm:max-w-lg">
               <DialogHeader>
-                <DialogTitle className="flex items-center gap-2">
-                  <CalendarCheck className="h-5 w-5 text-primary" strokeWidth={2.5} />
-                  Planejar Operação — Etapa {step}/3
+                <DialogTitle className="flex items-center gap-2 text-base">
+                  <div className="h-8 w-8 rounded-lg gradient-primary flex items-center justify-center">
+                    <CalendarCheck className="h-4 w-4 text-primary-foreground" strokeWidth={2.5} />
+                  </div>
+                  Planejar Operação
                 </DialogTitle>
+                <DialogDescription className="sr-only">Formulário de planejamento de operação</DialogDescription>
               </DialogHeader>
+
+              {/* Step indicator */}
+              <div className="flex items-center gap-2 py-2">
+                {steps.map((s, i) => (
+                  <div key={s.num} className="flex items-center gap-2 flex-1">
+                    <button
+                      onClick={() => setStep(s.num)}
+                      className={cn(
+                        "flex items-center gap-2 px-3 py-2 rounded-lg transition-all text-xs font-medium w-full",
+                        step === s.num
+                          ? "bg-accent text-accent-foreground"
+                          : step > s.num
+                          ? "bg-muted text-foreground"
+                          : "text-muted-foreground"
+                      )}
+                    >
+                      <s.icon className="h-3.5 w-3.5 shrink-0" strokeWidth={2} />
+                      <span className="hidden sm:inline">{s.label}</span>
+                      <span className="sm:hidden">{s.num}</span>
+                    </button>
+                    {i < steps.length - 1 && <div className="h-px w-4 bg-border shrink-0" />}
+                  </div>
+                ))}
+              </div>
+
               <div className="space-y-4 py-2">
                 {step === 1 && (
                   <>
                     <div className="space-y-2">
-                      <Label>Tipo de Operação</Label>
+                      <Label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Tipo de Operação</Label>
                       <Select>
-                        <SelectTrigger><SelectValue placeholder="Selecione..." /></SelectTrigger>
+                        <SelectTrigger className="h-11"><SelectValue placeholder="Selecione..." /></SelectTrigger>
                         <SelectContent>
                           <SelectItem value="plantio">Plantio</SelectItem>
                           <SelectItem value="adubacao">Adubação</SelectItem>
@@ -63,30 +98,30 @@ export default function PlanejamentoPage() {
                       </Select>
                     </div>
                     <div className="space-y-2">
-                      <Label>Talhão</Label>
+                      <Label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Talhão</Label>
                       <Select>
-                        <SelectTrigger><SelectValue placeholder="Selecione o talhão..." /></SelectTrigger>
+                        <SelectTrigger className="h-11"><SelectValue placeholder="Selecione o talhão..." /></SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="t1">T-01 Cerrado</SelectItem>
-                          <SelectItem value="t2">T-02 Vargem</SelectItem>
-                          <SelectItem value="t3">T-03 Barreiro</SelectItem>
-                          <SelectItem value="t4">T-04 Morro Alto</SelectItem>
-                          <SelectItem value="t5">T-05 Chapada</SelectItem>
+                          <SelectItem value="t1">T-01 Cerrado (320 ha)</SelectItem>
+                          <SelectItem value="t2">T-02 Vargem (180 ha)</SelectItem>
+                          <SelectItem value="t3">T-03 Barreiro (250 ha)</SelectItem>
+                          <SelectItem value="t4">T-04 Morro Alto (200 ha)</SelectItem>
+                          <SelectItem value="t5">T-05 Chapada (280 ha)</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
                     <div className="space-y-2">
-                      <Label>Data de Início</Label>
-                      <Input type="date" className="h-10 md:h-10" />
+                      <Label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Data de Início</Label>
+                      <Input type="date" className="h-11" />
                     </div>
                   </>
                 )}
                 {step === 2 && (
                   <>
                     <div className="space-y-2">
-                      <Label>Insumo Principal</Label>
+                      <Label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Insumo Principal</Label>
                       <Select>
-                        <SelectTrigger><SelectValue placeholder="Selecione o insumo..." /></SelectTrigger>
+                        <SelectTrigger className="h-11"><SelectValue placeholder="Selecione o insumo..." /></SelectTrigger>
                         <SelectContent>
                           <SelectItem value="semente">Semente TMG 2381</SelectItem>
                           <SelectItem value="map">MAP 10-46-00</SelectItem>
@@ -96,21 +131,21 @@ export default function PlanejamentoPage() {
                       </Select>
                     </div>
                     <div className="space-y-2">
-                      <Label>Dosagem</Label>
-                      <Input placeholder="Ex: 200 kg/ha" className="h-10" />
+                      <Label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Dosagem</Label>
+                      <Input placeholder="Ex: 200 kg/ha" className="h-11" />
                     </div>
                     <div className="space-y-2">
-                      <Label>Observações</Label>
-                      <Input placeholder="Notas adicionais..." className="h-10" />
+                      <Label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Observações</Label>
+                      <Input placeholder="Notas adicionais..." className="h-11" />
                     </div>
                   </>
                 )}
                 {step === 3 && (
                   <>
                     <div className="space-y-2">
-                      <Label>Operador</Label>
+                      <Label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Operador</Label>
                       <Select>
-                        <SelectTrigger><SelectValue placeholder="Selecione o operador..." /></SelectTrigger>
+                        <SelectTrigger className="h-11"><SelectValue placeholder="Selecione o operador..." /></SelectTrigger>
                         <SelectContent>
                           <SelectItem value="joao">João Silva</SelectItem>
                           <SelectItem value="carlos">Carlos Mendes</SelectItem>
@@ -120,9 +155,9 @@ export default function PlanejamentoPage() {
                       </Select>
                     </div>
                     <div className="space-y-2">
-                      <Label>Máquina</Label>
+                      <Label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Máquina</Label>
                       <Select>
-                        <SelectTrigger><SelectValue placeholder="Selecione a máquina..." /></SelectTrigger>
+                        <SelectTrigger className="h-11"><SelectValue placeholder="Selecione a máquina..." /></SelectTrigger>
                         <SelectContent>
                           <SelectItem value="jd8r">John Deere 8R</SelectItem>
                           <SelectItem value="mf8737">MF 8737</SelectItem>
@@ -134,16 +169,20 @@ export default function PlanejamentoPage() {
                   </>
                 )}
               </div>
-              <DialogFooter className="flex gap-2">
+              <DialogFooter className="flex gap-2 pt-2">
                 {step > 1 && (
-                  <Button variant="outline" onClick={() => setStep(step - 1)}>
+                  <Button variant="outline" onClick={() => setStep(step - 1)} className="flex-1 sm:flex-none">
                     Voltar
                   </Button>
                 )}
                 {step < 3 ? (
-                  <Button onClick={() => setStep(step + 1)}>Próximo</Button>
+                  <Button onClick={() => setStep(step + 1)} className="flex-1 sm:flex-none">
+                    Próximo
+                  </Button>
                 ) : (
-                  <Button onClick={handleSave}>Salvar</Button>
+                  <Button onClick={handleSave} className="flex-1 sm:flex-none">
+                    Salvar Operação
+                  </Button>
                 )}
               </DialogFooter>
             </DialogContent>
@@ -153,7 +192,7 @@ export default function PlanejamentoPage() {
       <DataTable
         columns={[
           { header: "Operação", accessor: (r) => <span className="font-medium">{r.operacao}</span> },
-          { header: "Talhão", accessor: "talhao" },
+          { header: "Talhão", accessor: (r) => <span className="font-mono-data text-muted-foreground">{r.talhao}</span> },
           { header: "Insumo", accessor: "insumo", className: "hidden md:table-cell" },
           { header: "Operador", accessor: "operador", className: "hidden lg:table-cell" },
           { header: "Início", accessor: (r) => <span className="font-mono-data">{r.dataInicio}</span>, className: "hidden sm:table-cell" },

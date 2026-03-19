@@ -3,6 +3,7 @@ import { DataTable } from "@/components/DataTable";
 import { KPICard } from "@/components/KPICard";
 import { Button } from "@/components/ui/button";
 import { Package, Plus, AlertTriangle } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const estoque = [
   { id: "1", item: "Semente TMG 2381", categoria: "Sementes", quantidade: "4.500 kg", minimo: "2.000 kg", localizacao: "Armazém A", alerta: false },
@@ -20,8 +21,8 @@ export default function EstoquePage() {
         title="Estoque"
         description="Controle de insumos e materiais"
         actions={
-          <Button size="sm">
-            <Plus className="h-4 w-4 mr-1" strokeWidth={2.5} />
+          <Button size="sm" className="gap-1.5">
+            <Plus className="h-4 w-4" strokeWidth={2.5} />
             Novo Item
           </Button>
         }
@@ -31,13 +32,15 @@ export default function EstoquePage() {
         <KPICard
           title="Total de Itens"
           value="6"
-          icon={<Package className="h-4 w-4 text-accent-foreground" strokeWidth={2.5} />}
+          subtitle="em 4 categorias"
+          icon={<Package className="h-4 w-4 text-primary" strokeWidth={2.5} />}
         />
         <KPICard
           title="Abaixo do Mínimo"
           value="2"
           subtitle="reposição necessária"
           icon={<AlertTriangle className="h-4 w-4 text-financial-pagar" strokeWidth={2.5} />}
+          className="border-financial-pagar/20"
         />
       </div>
 
@@ -45,14 +48,20 @@ export default function EstoquePage() {
         columns={[
           { header: "Item", accessor: (r) => (
             <div className="flex items-center gap-2">
+              {r.alerta && (
+                <div className="h-5 w-5 rounded-full bg-financial-pagar/10 flex items-center justify-center shrink-0">
+                  <AlertTriangle className="h-3 w-3 text-financial-pagar" strokeWidth={2.5} />
+                </div>
+              )}
               <span className="font-medium">{r.item}</span>
-              {r.alerta && <AlertTriangle className="h-3.5 w-3.5 text-financial-pagar" strokeWidth={2.5} />}
             </div>
           )},
-          { header: "Categoria", accessor: "categoria", className: "hidden md:table-cell" },
-          { header: "Quantidade", accessor: (r) => <span className="font-mono-data">{r.quantidade}</span> },
+          { header: "Categoria", accessor: (r) => <span className="text-muted-foreground">{r.categoria}</span>, className: "hidden md:table-cell" },
+          { header: "Quantidade", accessor: (r) => (
+            <span className={cn("font-mono-data font-medium", r.alerta && "text-financial-pagar")}>{r.quantidade}</span>
+          )},
           { header: "Mínimo", accessor: (r) => <span className="font-mono-data text-muted-foreground">{r.minimo}</span>, className: "hidden sm:table-cell" },
-          { header: "Local", accessor: "localizacao", className: "hidden lg:table-cell" },
+          { header: "Local", accessor: (r) => <span className="text-muted-foreground">{r.localizacao}</span>, className: "hidden lg:table-cell" },
         ]}
         data={estoque}
       />

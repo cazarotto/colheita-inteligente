@@ -20,8 +20,8 @@ export default function OperacoesPage() {
         title="Operações"
         description="Acompanhamento de operações de campo"
         actions={
-          <Button size="sm">
-            <Plus className="h-4 w-4 mr-1" strokeWidth={2.5} />
+          <Button size="sm" className="gap-1.5">
+            <Plus className="h-4 w-4" strokeWidth={2.5} />
             Nova Operação
           </Button>
         }
@@ -29,9 +29,9 @@ export default function OperacoesPage() {
       <DataTable
         columns={[
           { header: "Operação", accessor: (r) => <span className="font-medium">{r.tipo}</span> },
-          { header: "Talhão", accessor: "talhao" },
+          { header: "Talhão", accessor: (r) => <span className="font-mono-data text-muted-foreground">{r.talhao}</span> },
           { header: "Operador", accessor: "operador", className: "hidden md:table-cell" },
-          { header: "Máquina", accessor: "maquina", className: "hidden lg:table-cell" },
+          { header: "Máquina", accessor: (r) => <span className="text-muted-foreground">{r.maquina}</span>, className: "hidden lg:table-cell" },
           { header: "Data", accessor: (r) => <span className="font-mono-data">{r.data}</span>, className: "hidden sm:table-cell" },
           { header: "Status", accessor: (r) => <StatusBadge status={r.status} /> },
         ]}

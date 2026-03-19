@@ -16,10 +16,10 @@ export default function VendasPage() {
     <div className="space-y-6">
       <PageHeader
         title="Vendas"
-        description="Comercialização de produção"
+        description="Comercialização da produção"
         actions={
-          <Button size="sm">
-            <Plus className="h-4 w-4 mr-1" strokeWidth={2.5} />
+          <Button size="sm" className="gap-1.5">
+            <Plus className="h-4 w-4" strokeWidth={2.5} />
             Nova Venda
           </Button>
         }
@@ -28,24 +28,27 @@ export default function VendasPage() {
       <div className="grid grid-cols-2 gap-3 md:gap-4">
         <KPICard
           title="Vendas (safra)"
-          value="R$ 1.630.000"
-          icon={<ShoppingCart className="h-4 w-4 text-accent-foreground" strokeWidth={2.5} />}
+          value="R$ 1,63M"
+          subtitle="3 contratos"
+          trend={{ value: "22%", positive: true }}
+          icon={<ShoppingCart className="h-4 w-4 text-primary" strokeWidth={2.5} />}
         />
         <KPICard
           title="Preço Médio Soja"
           value="R$ 136,50"
           subtitle="por saca (60 kg)"
-          icon={<TrendingUp className="h-4 w-4 text-accent-foreground" strokeWidth={2.5} />}
+          trend={{ value: "4,2%", positive: true }}
+          icon={<TrendingUp className="h-4 w-4 text-primary" strokeWidth={2.5} />}
         />
       </div>
 
       <DataTable
         columns={[
           { header: "Produto", accessor: (r) => <span className="font-medium">{r.produto}</span> },
-          { header: "Comprador", accessor: "comprador" },
-          { header: "Quantidade", accessor: (r) => <span className="font-mono-data">{r.quantidade}</span>, className: "hidden sm:table-cell" },
-          { header: "Preço", accessor: (r) => <span className="font-mono-data">{r.preco}</span>, className: "hidden md:table-cell" },
-          { header: "Total", accessor: (r) => <span className="font-mono-data">{r.total}</span> },
+          { header: "Comprador", accessor: (r) => <span className="text-muted-foreground">{r.comprador}</span> },
+          { header: "Qtd.", accessor: (r) => <span className="font-mono-data">{r.quantidade}</span>, className: "hidden sm:table-cell" },
+          { header: "Preço", accessor: (r) => <span className="font-mono-data text-muted-foreground">{r.preco}</span>, className: "hidden md:table-cell" },
+          { header: "Total", accessor: (r) => <span className="font-mono-data font-semibold">{r.total}</span> },
           { header: "Status", accessor: (r) => <StatusBadge status={r.status} /> },
         ]}
         data={vendas}
