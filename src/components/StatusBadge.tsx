@@ -2,21 +2,22 @@ import { cn } from "@/lib/utils";
 
 type Status = "plantio" | "colheita" | "concluido" | "pendente" | "em_andamento" | "pago" | "vencido" | "aberto";
 
-const statusConfig: Record<Status, { label: string; className: string }> = {
-  plantio: { label: "Plantio", className: "bg-status-plantio/15 text-status-plantio" },
-  colheita: { label: "Colheita", className: "bg-status-colheita/15 text-status-colheita" },
-  concluido: { label: "Concluído", className: "bg-status-concluido/15 text-status-concluido" },
-  pendente: { label: "Pendente", className: "bg-status-pendente/15 text-status-pendente" },
-  em_andamento: { label: "Em Andamento", className: "bg-status-plantio/15 text-status-plantio" },
-  pago: { label: "Pago", className: "bg-status-concluido/15 text-status-concluido" },
-  vencido: { label: "Vencido", className: "bg-financial-pagar/15 text-financial-pagar" },
-  aberto: { label: "Aberto", className: "bg-status-colheita/15 text-status-colheita" },
+const statusConfig: Record<Status, { label: string; dot: string; bg: string; text: string }> = {
+  plantio: { label: "Plantio", dot: "bg-status-plantio", bg: "bg-status-plantio/10", text: "text-status-plantio" },
+  colheita: { label: "Colheita", dot: "bg-status-colheita", bg: "bg-status-colheita/10", text: "text-status-colheita" },
+  concluido: { label: "Concluído", dot: "bg-status-concluido", bg: "bg-status-concluido/10", text: "text-status-concluido" },
+  pendente: { label: "Pendente", dot: "bg-status-pendente", bg: "bg-status-pendente/10", text: "text-status-pendente" },
+  em_andamento: { label: "Em Andamento", dot: "bg-status-plantio", bg: "bg-status-plantio/10", text: "text-status-plantio" },
+  pago: { label: "Pago", dot: "bg-status-concluido", bg: "bg-status-concluido/10", text: "text-status-concluido" },
+  vencido: { label: "Vencido", dot: "bg-financial-pagar", bg: "bg-financial-pagar/10", text: "text-financial-pagar" },
+  aberto: { label: "Aberto", dot: "bg-status-colheita", bg: "bg-status-colheita/10", text: "text-status-colheita" },
 };
 
 export function StatusBadge({ status }: { status: Status }) {
   const config = statusConfig[status];
   return (
-    <span className={cn("px-2 py-0.5 rounded-full text-xs font-medium inline-block", config.className)}>
+    <span className={cn("inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold", config.bg, config.text)}>
+      <span className={cn("h-1.5 w-1.5 rounded-full", config.dot)} />
       {config.label}
     </span>
   );

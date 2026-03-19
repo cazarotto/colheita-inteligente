@@ -13,27 +13,31 @@ const contasReceber = [
 export default function ContasReceberPage() {
   return (
     <div className="space-y-6">
-      <PageHeader title="Contas a Receber" description="Gestão de recebíveis e vendas" />
+      <PageHeader title="Contas a Receber" description="Gestão de recebíveis e vendas futuras" />
 
       <div className="grid grid-cols-2 gap-3 md:gap-4">
         <KPICard
           title="A Receber"
           value="R$ 920.000"
-          icon={<TrendingUp className="h-4 w-4 text-accent-foreground" strokeWidth={2.5} />}
+          subtitle="2 títulos em aberto"
+          trend={{ value: "18%", positive: true }}
+          icon={<TrendingUp className="h-4 w-4 text-primary" strokeWidth={2.5} />}
+          variant="highlight"
         />
         <KPICard
           title="Recebido (mês)"
           value="R$ 420.000"
-          icon={<DollarSign className="h-4 w-4 text-accent-foreground" strokeWidth={2.5} />}
+          subtitle="1 título quitado"
+          icon={<DollarSign className="h-4 w-4 text-primary" strokeWidth={2.5} />}
         />
       </div>
 
       <DataTable
         columns={[
           { header: "Descrição", accessor: (r) => <span className="font-medium">{r.descricao}</span> },
-          { header: "Cliente", accessor: "cliente", className: "hidden md:table-cell" },
-          { header: "Valor", accessor: (r) => <span className="font-mono-data text-financial-receber">{r.valor}</span> },
-          { header: "Vencimento", accessor: (r) => <span className="font-mono-data">{r.vencimento}</span>, className: "hidden sm:table-cell" },
+          { header: "Cliente", accessor: (r) => <span className="text-muted-foreground">{r.cliente}</span>, className: "hidden md:table-cell" },
+          { header: "Valor", accessor: (r) => <span className="font-mono-data font-semibold text-financial-receber">{r.valor}</span> },
+          { header: "Vencimento", accessor: (r) => <span className="font-mono-data text-muted-foreground">{r.vencimento}</span>, className: "hidden sm:table-cell" },
           { header: "Status", accessor: (r) => <StatusBadge status={r.status} /> },
         ]}
         data={contasReceber}
