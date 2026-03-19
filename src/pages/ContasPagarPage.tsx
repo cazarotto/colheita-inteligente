@@ -1,0 +1,51 @@
+import { PageHeader } from "@/components/PageHeader";
+import { DataTable } from "@/components/DataTable";
+import { StatusBadge } from "@/components/StatusBadge";
+import { KPICard } from "@/components/KPICard";
+import { DollarSign, AlertTriangle, CheckCircle } from "lucide-react";
+
+const contasPagar = [
+  { id: "1", descricao: "Sementes TMG 2381", fornecedor: "Agrocampo Ltda", valor: "R$ 245.000,00", vencimento: "20/03/2026", status: "aberto" as const },
+  { id: "2", descricao: "Fertilizante MAP", fornecedor: "Heringer SA", valor: "R$ 180.500,00", vencimento: "15/03/2026", status: "vencido" as const },
+  { id: "3", descricao: "Defensivo Roundup WG", fornecedor: "Bayer CropScience", valor: "R$ 92.300,00", vencimento: "25/03/2026", status: "aberto" as const },
+  { id: "4", descricao: "Diesel S10", fornecedor: "BR Distribuidora", valor: "R$ 67.800,00", vencimento: "10/03/2026", status: "pago" as const },
+  { id: "5", descricao: "Manutenção Colhedora", fornecedor: "JD Service", valor: "R$ 34.200,00", vencimento: "12/03/2026", status: "pago" as const },
+];
+
+export default function ContasPagarPage() {
+  return (
+    <div className="space-y-6">
+      <PageHeader title="Contas a Pagar" description="Gestão de pagamentos e obrigações" />
+
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
+        <KPICard
+          title="Total em Aberto"
+          value="R$ 517.800"
+          icon={<DollarSign className="h-4 w-4 text-accent-foreground" strokeWidth={2.5} />}
+        />
+        <KPICard
+          title="Vencidos"
+          value="R$ 180.500"
+          subtitle="1 conta vencida"
+          icon={<AlertTriangle className="h-4 w-4 text-financial-pagar" strokeWidth={2.5} />}
+        />
+        <KPICard
+          title="Pagos (mês)"
+          value="R$ 102.000"
+          icon={<CheckCircle className="h-4 w-4 text-accent-foreground" strokeWidth={2.5} />}
+        />
+      </div>
+
+      <DataTable
+        columns={[
+          { header: "Descrição", accessor: (r) => <span className="font-medium">{r.descricao}</span> },
+          { header: "Fornecedor", accessor: "fornecedor", className: "hidden md:table-cell" },
+          { header: "Valor", accessor: (r) => <span className="font-mono-data">{r.valor}</span> },
+          { header: "Vencimento", accessor: (r) => <span className="font-mono-data">{r.vencimento}</span>, className: "hidden sm:table-cell" },
+          { header: "Status", accessor: (r) => <StatusBadge status={r.status} /> },
+        ]}
+        data={contasPagar}
+      />
+    </div>
+  );
+}
