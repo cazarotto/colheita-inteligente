@@ -3,7 +3,7 @@ import { LayoutDashboard, Tractor, CalendarCheck, Package, Menu } from "lucide-r
 import { useState } from "react";
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import {
-  Map, CalendarCheck, SprayCan, Package, ShoppingCart, Users, Wrench,
+  Map, Droplets, DollarSign, Wheat, ShoppingCart, Users, Wrench,
   Brain, FileBarChart, Factory, ShoppingBag, BookOpen, BarChart3, FileText, StickyNote, TrendingUp,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
