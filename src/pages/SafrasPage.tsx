@@ -24,26 +24,24 @@ export default function SafrasPage() {
         }
       />
 
-      {/* Quick stat */}
-      <div className="flex items-center gap-4 p-4 premium-card">
-        <div className="h-10 w-10 rounded-xl bg-accent flex items-center justify-center">
-          <Wheat className="h-5 w-5 text-primary" strokeWidth={2} />
-        </div>
-        <div>
-          <p className="text-sm font-semibold">3 safras cadastradas</p>
-          <p className="text-xs text-muted-foreground">1 em andamento · 2 concluídas</p>
-        </div>
-      </div>
-
       <DataTable
         columns={[
-          { header: "Nome", accessor: (r) => <span className="font-medium">{r.nome}</span> },
+          { header: "Nome", accessor: (r) => <span className="font-semibold">{r.nome}</span> },
           { header: "Período", accessor: (r) => <span className="font-mono-data text-muted-foreground">{r.periodo}</span>, className: "hidden sm:table-cell" },
           { header: "Cultura", accessor: "cultura", className: "hidden md:table-cell" },
           { header: "Área", accessor: (r) => <span className="font-mono-data font-medium">{r.area}</span> },
           { header: "Status", accessor: (r) => <StatusBadge status={r.status} /> },
         ]}
         data={safras}
+        mobileCard={{
+          title: (r) => r.nome,
+          subtitle: (r) => r.cultura,
+          badge: (r) => <StatusBadge status={r.status} />,
+          fields: [
+            { label: "Período", accessor: (r) => <span className="font-mono-data">{r.periodo}</span> },
+            { label: "Área", accessor: (r) => <span className="font-mono-data font-semibold">{r.area}</span> },
+          ],
+        }}
       />
     </div>
   );

@@ -1,7 +1,7 @@
 import { PageHeader } from "@/components/PageHeader";
 import { DataTable } from "@/components/DataTable";
 import { Button } from "@/components/ui/button";
-import { Plus, Map } from "lucide-react";
+import { Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const talhoes = [
@@ -27,22 +27,11 @@ export default function TalhoesPage() {
         }
       />
 
-      {/* Summary cards - mobile grid */}
-      <div className="grid grid-cols-3 gap-2 md:hidden">
-        {talhoes.slice(0, 3).map((t) => (
-          <div key={t.id} className="premium-card p-3 text-center">
-            <div className={cn("h-2 w-2 rounded-full mx-auto mb-2", t.cor)} />
-            <p className="text-xs font-semibold">{t.codigo}</p>
-            <p className="text-[11px] text-muted-foreground font-mono-data">{t.area}</p>
-          </div>
-        ))}
-      </div>
-
       <DataTable
         columns={[
           { header: "Código", accessor: (r) => (
             <div className="flex items-center gap-2">
-              <div className={cn("h-2 w-2 rounded-full shrink-0", r.cor)} />
+              <div className={cn("h-2.5 w-2.5 rounded-full shrink-0", r.cor)} />
               <span className="font-semibold font-mono-data">{r.codigo}</span>
             </div>
           )},
@@ -52,6 +41,15 @@ export default function TalhoesPage() {
           { header: "Tipo de Solo", accessor: (r) => <span className="text-muted-foreground">{r.solo}</span>, className: "hidden md:table-cell" },
         ]}
         data={talhoes}
+        mobileCard={{
+          title: (r) => `${r.codigo} — ${r.nome}`,
+          subtitle: (r) => r.solo,
+          icon: (r) => <div className={cn("h-3 w-3 rounded-full mt-1", r.cor)} />,
+          fields: [
+            { label: "Área", accessor: (r) => <span className="font-mono-data font-semibold">{r.area}</span> },
+            { label: "Cultura", accessor: "cultura" },
+          ],
+        }}
       />
     </div>
   );

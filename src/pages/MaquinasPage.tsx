@@ -2,7 +2,7 @@ import { PageHeader } from "@/components/PageHeader";
 import { DataTable } from "@/components/DataTable";
 import { StatusBadge } from "@/components/StatusBadge";
 import { Button } from "@/components/ui/button";
-import { Plus, Wrench } from "lucide-react";
+import { Plus } from "lucide-react";
 
 const maquinas = [
   { id: "1", nome: "John Deere 8R 370", tipo: "Trator", ano: "2023", horasMotor: "1.245 h", status: "em_andamento" as const, operador: "João Silva" },
@@ -26,21 +26,11 @@ export default function MaquinasPage() {
         }
       />
 
-      <div className="flex items-center gap-4 p-4 premium-card">
-        <div className="h-10 w-10 rounded-xl bg-accent flex items-center justify-center">
-          <Wrench className="h-5 w-5 text-primary" strokeWidth={2} />
-        </div>
-        <div>
-          <p className="text-sm font-semibold">5 máquinas cadastradas</p>
-          <p className="text-xs text-muted-foreground">2 em operação · 1 disponível · 2 paradas</p>
-        </div>
-      </div>
-
       <DataTable
         columns={[
           { header: "Máquina", accessor: (r) => (
             <div>
-              <span className="font-medium block">{r.nome}</span>
+              <span className="font-semibold block">{r.nome}</span>
               <span className="text-[11px] text-muted-foreground md:hidden">{r.tipo}</span>
             </div>
           )},
@@ -51,6 +41,15 @@ export default function MaquinasPage() {
           { header: "Status", accessor: (r) => <StatusBadge status={r.status} /> },
         ]}
         data={maquinas}
+        mobileCard={{
+          title: (r) => r.nome,
+          subtitle: (r) => `${r.tipo} · ${r.ano}`,
+          badge: (r) => <StatusBadge status={r.status} />,
+          fields: [
+            { label: "Horas", accessor: (r) => <span className="font-mono-data">{r.horasMotor}</span> },
+            { label: "Operador", accessor: "operador" },
+          ],
+        }}
       />
     </div>
   );

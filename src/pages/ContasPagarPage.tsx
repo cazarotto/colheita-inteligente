@@ -2,7 +2,7 @@ import { PageHeader } from "@/components/PageHeader";
 import { DataTable } from "@/components/DataTable";
 import { StatusBadge } from "@/components/StatusBadge";
 import { KPICard } from "@/components/KPICard";
-import { DollarSign, AlertTriangle, CheckCircle, TrendingDown } from "lucide-react";
+import { DollarSign, AlertTriangle, CheckCircle } from "lucide-react";
 
 const contasPagar = [
   { id: "1", descricao: "Sementes TMG 2381", fornecedor: "Agrocampo Ltda", valor: "R$ 245.000,00", vencimento: "20/03/2026", status: "aberto" as const },
@@ -20,35 +20,44 @@ export default function ContasPagarPage() {
       <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
         <KPICard
           title="Total em Aberto"
-          value="R$ 517.800"
+          value="R$ 517,8k"
           subtitle="2 títulos pendentes"
           icon={<DollarSign className="h-4 w-4 text-primary" strokeWidth={2.5} />}
         />
         <KPICard
           title="Vencidos"
-          value="R$ 180.500"
+          value="R$ 180,5k"
           subtitle="1 conta vencida"
           icon={<AlertTriangle className="h-4 w-4 text-financial-pagar" strokeWidth={2.5} />}
           className="border-financial-pagar/20"
         />
         <KPICard
           title="Pagos no Mês"
-          value="R$ 102.000"
+          value="R$ 102k"
           trend={{ value: "12%", positive: true }}
           icon={<CheckCircle className="h-4 w-4 text-primary" strokeWidth={2.5} />}
-          className="hidden lg:block"
+          className="col-span-2 lg:col-span-1"
         />
       </div>
 
       <DataTable
         columns={[
-          { header: "Descrição", accessor: (r) => <span className="font-medium">{r.descricao}</span> },
+          { header: "Descrição", accessor: (r) => <span className="font-semibold">{r.descricao}</span> },
           { header: "Fornecedor", accessor: (r) => <span className="text-muted-foreground">{r.fornecedor}</span>, className: "hidden md:table-cell" },
           { header: "Valor", accessor: (r) => <span className="font-mono-data font-semibold">{r.valor}</span> },
           { header: "Vencimento", accessor: (r) => <span className="font-mono-data text-muted-foreground">{r.vencimento}</span>, className: "hidden sm:table-cell" },
           { header: "Status", accessor: (r) => <StatusBadge status={r.status} /> },
         ]}
         data={contasPagar}
+        mobileCard={{
+          title: (r) => r.descricao,
+          subtitle: (r) => r.fornecedor,
+          badge: (r) => <StatusBadge status={r.status} />,
+          fields: [
+            { label: "Valor", accessor: (r) => <span className="font-mono-data font-semibold">{r.valor}</span> },
+            { label: "Venc.", accessor: (r) => <span className="font-mono-data">{r.vencimento}</span> },
+          ],
+        }}
       />
     </div>
   );
