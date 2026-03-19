@@ -3,7 +3,7 @@ import { LayoutDashboard, Wheat, Tractor, DollarSign, Menu } from "lucide-react"
 import { useState } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
-  Map, CalendarCheck, Spray, Package, ShoppingCart, Users, Wrench,
+  Map, CalendarCheck, SprayCan, Package, ShoppingCart, Users, Wrench,
 } from "lucide-react";
 
 const tabs = [
