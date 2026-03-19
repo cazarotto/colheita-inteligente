@@ -2,7 +2,7 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
 import { MobileBottomNav } from "@/components/MobileBottomNav";
 import { Outlet, useLocation } from "react-router-dom";
-import { Leaf, Bell } from "lucide-react";
+import { Leaf, Bell, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const pageTitles: Record<string, string> = {
@@ -40,32 +40,40 @@ export function AppLayout() {
         </div>
         <div className="flex-1 flex flex-col min-w-0">
           {/* Desktop header */}
-          <header className="h-14 items-center border-b px-4 bg-card/80 backdrop-blur-sm shrink-0 hidden md:flex justify-between sticky top-0 z-30">
+          <header className="h-14 items-center border-b border-border/60 px-4 bg-card/60 backdrop-blur-md shrink-0 hidden md:flex justify-between sticky top-0 z-30">
             <div className="flex items-center gap-3">
-              <SidebarTrigger className="text-muted-foreground hover:text-foreground" />
-              <div className="h-5 w-px bg-border" />
-              <span className="text-sm font-medium text-foreground">{title}</span>
+              <SidebarTrigger className="text-muted-foreground hover:text-foreground transition-colors" />
+              <div className="h-4 w-px bg-border" />
+              <span className="text-sm font-semibold text-foreground">{title}</span>
             </div>
-            <div className="flex items-center gap-2">
-              <Button variant="ghost" size="icon" className="relative text-muted-foreground">
+            <div className="flex items-center gap-1.5">
+              <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground h-9 w-9">
+                <Search className="h-4 w-4" strokeWidth={2} />
+              </Button>
+              <Button variant="ghost" size="icon" className="relative text-muted-foreground hover:text-foreground h-9 w-9">
                 <Bell className="h-4 w-4" strokeWidth={2} />
-                <span className="absolute top-2 right-2 h-2 w-2 rounded-full bg-primary" />
+                <span className="absolute top-2 right-2 h-2 w-2 rounded-full bg-primary ring-2 ring-card" />
               </Button>
             </div>
           </header>
 
           {/* Mobile header */}
-          <header className="h-14 flex items-center border-b px-4 bg-card/80 backdrop-blur-sm shrink-0 md:hidden sticky top-0 z-30 justify-between">
+          <header className="h-14 flex items-center border-b border-border/60 px-4 bg-card/60 backdrop-blur-md shrink-0 md:hidden sticky top-0 z-30 justify-between">
             <div className="flex items-center gap-2.5">
-              <div className="h-7 w-7 rounded-lg gradient-primary flex items-center justify-center">
-                <Leaf className="h-3.5 w-3.5 text-primary-foreground" strokeWidth={2.5} />
+              <div className="h-8 w-8 rounded-lg gradient-primary flex items-center justify-center shadow-sm">
+                <Leaf className="h-4 w-4 text-primary-foreground" strokeWidth={2.5} />
               </div>
-              <span className="text-sm font-semibold">{title}</span>
+              <div>
+                <span className="text-sm font-bold block leading-tight">{title}</span>
+                <span className="text-[10px] text-muted-foreground leading-none">SafraOS</span>
+              </div>
             </div>
-            <Button variant="ghost" size="icon" className="relative text-muted-foreground h-8 w-8">
-              <Bell className="h-4 w-4" strokeWidth={2} />
-              <span className="absolute top-1.5 right-1.5 h-1.5 w-1.5 rounded-full bg-primary" />
-            </Button>
+            <div className="flex items-center gap-1">
+              <Button variant="ghost" size="icon" className="relative text-muted-foreground h-8 w-8">
+                <Bell className="h-4 w-4" strokeWidth={2} />
+                <span className="absolute top-1.5 right-1.5 h-1.5 w-1.5 rounded-full bg-primary" />
+              </Button>
+            </div>
           </header>
 
           <main className="flex-1 p-4 md:p-6 pb-24 md:pb-6 overflow-auto">

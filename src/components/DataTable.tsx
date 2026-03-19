@@ -7,7 +7,6 @@ interface Column<T> {
   header: string;
   accessor: keyof T | ((row: T) => ReactNode);
   className?: string;
-  /** If true, show this column in the mobile card view */
   primary?: boolean;
 }
 
@@ -20,7 +19,6 @@ interface DataTableProps<T> {
   columns: Column<T>[];
   data: T[];
   onRowClick?: (row: T) => void;
-  /** Define how each row renders on mobile as a card */
   mobileCard?: {
     title: (row: T) => ReactNode;
     subtitle?: (row: T) => ReactNode;
@@ -45,7 +43,7 @@ export function DataTable<T extends { id: string | number }>({
     <>
       {/* Mobile Card View */}
       {mobileCard && (
-        <div className="md:hidden space-y-2">
+        <div className="md:hidden space-y-2.5">
           {data.map((row) => (
             <div
               key={row.id}
@@ -59,7 +57,7 @@ export function DataTable<T extends { id: string | number }>({
                 <div className="flex-1 min-w-0">
                   <div className="flex items-start justify-between gap-2">
                     <div className="min-w-0">
-                      <div className="font-semibold text-sm truncate">{mobileCard.title(row)}</div>
+                      <div className="font-semibold text-sm text-foreground truncate">{mobileCard.title(row)}</div>
                       {mobileCard.subtitle && (
                         <div className="text-xs text-muted-foreground mt-0.5">{mobileCard.subtitle(row)}</div>
                       )}
@@ -69,13 +67,13 @@ export function DataTable<T extends { id: string | number }>({
                     )}
                   </div>
                   {mobileCard.fields && mobileCard.fields.length > 0 && (
-                    <div className="flex flex-wrap gap-x-4 gap-y-1 mt-2.5 pt-2.5 border-t border-border/50">
+                    <div className="flex flex-wrap gap-x-5 gap-y-1.5 mt-3 pt-3 border-t border-border/40">
                       {mobileCard.fields.map((field, i) => (
                         <div key={i} className="flex items-baseline gap-1.5">
-                          <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-medium">
+                          <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold">
                             {field.label}
                           </span>
-                          <span className="text-xs font-medium">
+                          <span className="text-[12px] font-medium text-foreground">
                             {getValue(row, field.accessor)}
                           </span>
                         </div>
@@ -87,9 +85,11 @@ export function DataTable<T extends { id: string | number }>({
             </div>
           ))}
           {data.length === 0 && (
-            <div className="premium-card py-12 flex flex-col items-center gap-2 text-muted-foreground">
-              <Package className="h-8 w-8 opacity-40" />
-              <p className="text-sm">Nenhum registro encontrado</p>
+            <div className="premium-card py-16 flex flex-col items-center gap-3 text-muted-foreground">
+              <div className="h-12 w-12 rounded-2xl bg-muted flex items-center justify-center">
+                <Package className="h-6 w-6 opacity-40" />
+              </div>
+              <p className="text-sm font-medium">Nenhum registro encontrado</p>
             </div>
           )}
         </div>
@@ -100,10 +100,10 @@ export function DataTable<T extends { id: string | number }>({
         <div className="overflow-x-auto">
           <Table>
             <TableHeader>
-              <TableRow className="bg-muted/50 hover:bg-muted/50 border-b">
+              <TableRow className="bg-muted/40 hover:bg-muted/40 border-b">
                 {columns.map((col, i) => (
                   <TableHead key={i} className={cn(
-                    "text-[11px] font-semibold uppercase tracking-[0.06em] text-muted-foreground h-11 first:pl-5 last:pr-5",
+                    "text-[11px] font-bold uppercase tracking-[0.08em] text-muted-foreground h-11 first:pl-5 last:pr-5",
                     col.className
                   )}>
                     {col.header}
@@ -116,9 +116,9 @@ export function DataTable<T extends { id: string | number }>({
                 <TableRow
                   key={row.id}
                   className={cn(
-                    "h-[52px] text-sm transition-colors duration-100 border-b border-border/40 last:border-0",
+                    "h-[52px] text-sm transition-colors duration-100 border-b border-border/30 last:border-0",
                     onRowClick && "cursor-pointer",
-                    "hover:bg-accent/30"
+                    "hover:bg-accent/20"
                   )}
                   onClick={() => onRowClick?.(row)}
                 >
@@ -131,10 +131,12 @@ export function DataTable<T extends { id: string | number }>({
               ))}
               {data.length === 0 && (
                 <TableRow>
-                  <TableCell colSpan={columns.length} className="text-center py-12 text-muted-foreground">
-                    <div className="flex flex-col items-center gap-2">
-                      <Package className="h-8 w-8 opacity-40" />
-                      <p>Nenhum registro encontrado</p>
+                  <TableCell colSpan={columns.length} className="text-center py-16 text-muted-foreground">
+                    <div className="flex flex-col items-center gap-3">
+                      <div className="h-12 w-12 rounded-2xl bg-muted flex items-center justify-center">
+                        <Package className="h-6 w-6 opacity-40" />
+                      </div>
+                      <p className="font-medium">Nenhum registro encontrado</p>
                     </div>
                   </TableCell>
                 </TableRow>
