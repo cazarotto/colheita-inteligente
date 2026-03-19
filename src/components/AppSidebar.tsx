@@ -4,7 +4,7 @@ import {
   Map,
   Tractor,
   CalendarCheck,
-  SprayCan,
+  Droplets,
   DollarSign,
   Package,
   ShoppingCart,
@@ -58,7 +58,7 @@ const producaoItems = [
   { title: "Safras", url: "/safras", icon: Wheat },
   { title: "Talhões", url: "/talhoes", icon: Map },
   { title: "Operações", url: "/operacoes", icon: Tractor },
-  { title: "Pulverizações", url: "/pulverizacoes", icon: SprayCan },
+  { title: "Pulverizações", url: "/pulverizacoes", icon: Droplets },
   { title: "Planejamento", url: "/planejamento", icon: CalendarCheck },
   { title: "Produção", url: "/producao", icon: Factory },
 ];

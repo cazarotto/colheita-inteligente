@@ -1,18 +1,18 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { LayoutDashboard, Wheat, Tractor, DollarSign, Menu } from "lucide-react";
+import { LayoutDashboard, Tractor, CalendarCheck, Package, Menu } from "lucide-react";
 import { useState } from "react";
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import {
-  Map, CalendarCheck, SprayCan, Package, ShoppingCart, Users, Wrench,
+  Map, Droplets, DollarSign, Wheat, ShoppingCart, Users, Wrench,
   Brain, FileBarChart, Factory, ShoppingBag, BookOpen, BarChart3, FileText, StickyNote, TrendingUp,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const tabs = [
   { label: "Painel", icon: LayoutDashboard, path: "/dashboard" },
-  { label: "Safras", icon: Wheat, path: "/safras" },
   { label: "Operações", icon: Tractor, path: "/operacoes" },
-  { label: "Financeiro", icon: DollarSign, path: "/financeiro/pagar" },
+  { label: "Planejamento", icon: CalendarCheck, path: "/planejamento" },
+  { label: "Estoque", icon: Package, path: "/estoque" },
   { label: "Mais", icon: Menu, path: "__more__" },
 ];
 
@@ -28,18 +28,18 @@ const moreGroups = [
     label: "Produção",
     items: [
       { label: "Talhões", icon: Map, path: "/talhoes" },
-      { label: "Planejamento", icon: CalendarCheck, path: "/planejamento" },
-      { label: "Pulverizações", icon: SprayCan, path: "/pulverizacoes" },
+      { label: "Safras", icon: Wheat, path: "/safras" },
+      { label: "Pulverizações", icon: Droplets, path: "/pulverizacoes" },
       { label: "Produção", icon: Factory, path: "/producao" },
     ],
   },
   {
-    label: "Comercial & Estoque",
+    label: "Financeiro & Comercial",
     items: [
-      { label: "Receber", icon: TrendingUp, path: "/financeiro/receber" },
+      { label: "Contas a Pagar", icon: DollarSign, path: "/financeiro/pagar" },
+      { label: "Contas a Receber", icon: TrendingUp, path: "/financeiro/receber" },
       { label: "Vendas", icon: ShoppingCart, path: "/comercial/vendas" },
       { label: "Compras", icon: ShoppingBag, path: "/comercial/compras" },
-      { label: "Estoque", icon: Package, path: "/estoque" },
       { label: "Catálogo", icon: BookOpen, path: "/estoque/catalogo" },
       { label: "Movimentações", icon: BarChart3, path: "/estoque/movimentacoes" },
     ],
@@ -61,8 +61,7 @@ export function MobileBottomNav() {
   const [open, setOpen] = useState(false);
 
   const isActive = (path: string) => {
-    if (path === "/financeiro/pagar") return location.pathname.startsWith("/financeiro");
-    return location.pathname === path;
+    return location.pathname === path || location.pathname.startsWith(path + "/");
   };
 
   return (
