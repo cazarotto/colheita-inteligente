@@ -4,7 +4,7 @@ import {
   Map,
   Tractor,
   CalendarCheck,
-  SprayCan,
+  Droplets,
   DollarSign,
   Package,
   ShoppingCart,
