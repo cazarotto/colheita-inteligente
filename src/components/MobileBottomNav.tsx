@@ -61,8 +61,7 @@ export function MobileBottomNav() {
   const [open, setOpen] = useState(false);
 
   const isActive = (path: string) => {
-    if (path === "/financeiro/pagar") return location.pathname.startsWith("/financeiro");
-    return location.pathname === path;
+    return location.pathname === path || location.pathname.startsWith(path + "/");
   };
 
   return (
