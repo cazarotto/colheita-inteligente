@@ -17,7 +17,7 @@ const tabs = [
 const moreItems = [
   { label: "Talhões", icon: Map, path: "/talhoes" },
   { label: "Planejamento", icon: CalendarCheck, path: "/planejamento" },
-  { label: "Pulverizações", icon: Spray, path: "/pulverizacoes" },
+  { label: "Pulverizações", icon: SprayCan, path: "/pulverizacoes" },
   { label: "Estoque", icon: Package, path: "/estoque" },
   { label: "Contas a Receber", icon: DollarSign, path: "/financeiro/receber" },
   { label: "Vendas", icon: ShoppingCart, path: "/comercial/vendas" },

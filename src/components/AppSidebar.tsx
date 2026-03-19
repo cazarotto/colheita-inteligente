@@ -38,7 +38,7 @@ const mainItems = [
   { title: "Talhões", url: "/talhoes", icon: Map },
   { title: "Operações", url: "/operacoes", icon: Tractor },
   { title: "Planejamento", url: "/planejamento", icon: CalendarCheck },
-  { title: "Pulverizações", url: "/pulverizacoes", icon: Spray },
+  { title: "Pulverizações", url: "/pulverizacoes", icon: SprayCan },
   { title: "Estoque", url: "/estoque", icon: Package },
 ];
 
