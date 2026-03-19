@@ -66,28 +66,31 @@ export function MobileBottomNav() {
   };
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-xl border-t md:hidden">
-      <div className="flex items-center justify-around h-[64px] px-1 pb-[env(safe-area-inset-bottom)]">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 md:hidden">
+      {/* Glass background */}
+      <div className="absolute inset-0 bg-card/90 backdrop-blur-xl border-t border-border/60" />
+      
+      <div className="relative flex items-center justify-around h-[68px] px-2 pb-[env(safe-area-inset-bottom)]">
         {tabs.map((tab) => {
           if (tab.path === "__more__") {
             return (
               <Sheet key="more" open={open} onOpenChange={setOpen}>
                 <SheetTrigger asChild>
-                  <button className="flex flex-col items-center gap-1 px-3 py-1.5 text-muted-foreground active:scale-90 transition-transform">
+                  <button className="flex flex-col items-center gap-1.5 px-4 py-2 text-muted-foreground active:scale-90 transition-transform">
                     <div className="h-6 w-6 flex items-center justify-center">
-                      <Menu className="h-5 w-5" strokeWidth={2} />
+                      <Menu className="h-5 w-5" strokeWidth={1.8} />
                     </div>
                     <span className="text-[10px] font-medium">Mais</span>
                   </button>
                 </SheetTrigger>
-                <SheetContent side="bottom" className="rounded-t-2xl max-h-[85vh] overflow-y-auto pb-10 px-5">
-                  <SheetHeader className="pb-1">
+                <SheetContent side="bottom" className="rounded-t-3xl max-h-[80vh] overflow-y-auto pb-10 px-5">
+                  <SheetHeader className="pb-2">
                     <SheetTitle className="text-base font-bold">Navegação</SheetTitle>
                   </SheetHeader>
-                  <div className="space-y-5 pt-2">
+                  <div className="space-y-5 pt-1">
                     {moreGroups.map((group) => (
                       <div key={group.label}>
-                        <p className="text-[10px] uppercase tracking-[0.12em] font-bold text-muted-foreground mb-2 px-1">{group.label}</p>
+                        <p className="text-[10px] uppercase tracking-[0.14em] font-bold text-muted-foreground mb-2.5 px-1">{group.label}</p>
                         <div className="grid grid-cols-3 gap-2">
                           {group.items.map((item) => {
                             const active = location.pathname === item.path;
@@ -96,13 +99,13 @@ export function MobileBottomNav() {
                                 key={item.path}
                                 onClick={() => { navigate(item.path); setOpen(false); }}
                                 className={cn(
-                                  "flex flex-col items-center gap-2 p-3 rounded-xl transition-all duration-150 active:scale-95",
+                                  "flex flex-col items-center gap-2 p-3.5 rounded-xl transition-all duration-150 active:scale-95",
                                   active
-                                    ? "bg-accent text-accent-foreground shadow-sm"
+                                    ? "bg-accent text-accent-foreground shadow-sm border border-primary/20"
                                     : "text-muted-foreground hover:bg-secondary active:bg-secondary"
                                 )}
                               >
-                                <item.icon className={cn("h-5 w-5", active && "text-primary")} strokeWidth={active ? 2.5 : 1.8} />
+                                <item.icon className={cn("h-5 w-5", active && "text-primary")} strokeWidth={active ? 2.5 : 1.7} />
                                 <span className="text-[11px] font-medium leading-tight text-center">{item.label}</span>
                               </button>
                             );
@@ -121,15 +124,19 @@ export function MobileBottomNav() {
               key={tab.path}
               onClick={() => navigate(tab.path)}
               className={cn(
-                "flex flex-col items-center gap-1 px-3 py-1.5 transition-all duration-150 active:scale-90",
+                "flex flex-col items-center gap-1.5 px-4 py-2 transition-all duration-150 active:scale-90 relative",
                 active ? "text-primary" : "text-muted-foreground"
               )}
             >
+              {/* Active indicator line */}
+              {active && (
+                <div className="absolute -top-px left-1/2 -translate-x-1/2 w-8 h-0.5 rounded-full gradient-primary" />
+              )}
               <div className={cn(
-                "h-7 w-7 flex items-center justify-center rounded-lg transition-colors",
-                active && "bg-accent"
+                "h-7 w-7 flex items-center justify-center rounded-xl transition-all duration-200",
+                active && "bg-accent scale-110"
               )}>
-                <tab.icon className="h-[18px] w-[18px]" strokeWidth={active ? 2.5 : 1.8} />
+                <tab.icon className="h-[18px] w-[18px]" strokeWidth={active ? 2.5 : 1.7} />
               </div>
               <span className={cn("text-[10px]", active ? "font-bold" : "font-medium")}>{tab.label}</span>
             </button>

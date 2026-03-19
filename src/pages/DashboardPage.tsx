@@ -1,8 +1,7 @@
 import { PageHeader } from "@/components/PageHeader";
 import { KPICard } from "@/components/KPICard";
 import { StatusBadge } from "@/components/StatusBadge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Map, DollarSign, Tractor, Wheat, Cloud, Droplets, Thermometer, Wind, ArrowRight, CalendarCheck } from "lucide-react";
+import { Map, DollarSign, Tractor, Wheat, Cloud, Droplets, Thermometer, Wind, ArrowRight, CalendarCheck, Sun } from "lucide-react";
 import {
   AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
 } from "recharts";
@@ -32,19 +31,18 @@ const recentOps = [
   { id: 2, talhao: "T-03 Barreiro", operacao: "Pulverização Fungicida", status: "concluido" as const, data: "14/03", progresso: 100 },
   { id: 3, talhao: "T-05 Chapada", operacao: "Adubação de Cobertura", status: "pendente" as const, data: "16/03", progresso: 0 },
   { id: 4, talhao: "T-02 Vargem", operacao: "Colheita Milho 2ª Safra", status: "colheita" as const, data: "13/03", progresso: 45 },
-  { id: 5, talhao: "T-06 Brejo", operacao: "Dessecação Pré-Plantio", status: "pendente" as const, data: "17/03", progresso: 0 },
 ];
 
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (!active || !payload) return null;
   return (
     <div className="glass-card p-3 !bg-card shadow-lg border text-xs">
-      <p className="font-semibold mb-1.5">{label}</p>
+      <p className="font-bold mb-1.5 text-foreground">{label}</p>
       {payload.map((p: any) => (
-        <div key={p.name} className="flex items-center gap-2">
-          <div className="h-2 w-2 rounded-full" style={{ background: p.color }} />
+        <div key={p.name} className="flex items-center gap-2 py-0.5">
+          <div className="h-2 w-2 rounded-full shrink-0" style={{ background: p.color }} />
           <span className="text-muted-foreground">{p.name}:</span>
-          <span className="font-mono-data font-medium">
+          <span className="font-mono-data font-semibold text-foreground">
             R$ {(p.value / 1000).toFixed(0)}k
           </span>
         </div>
@@ -55,62 +53,68 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 
 export default function DashboardPage() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-5 md:space-y-6">
       <PageHeader title="Fazenda Santa Fé" description="Safra 2025/26 · Visão geral da operação" />
 
       {/* Weather Banner */}
       <div className="premium-card overflow-hidden">
-        <div className="gradient-primary p-4 md:p-5">
-          <div className="flex items-start justify-between">
+        <div className="gradient-primary p-4 md:p-5 relative overflow-hidden">
+          {/* Decorative circles */}
+          <div className="absolute -top-8 -right-8 w-32 h-32 rounded-full bg-white/5" />
+          <div className="absolute -bottom-12 -right-4 w-24 h-24 rounded-full bg-white/5" />
+          
+          <div className="flex items-start justify-between relative">
             <div>
-              <div className="flex items-center gap-2 mb-1">
-                <Cloud className="h-4 w-4 text-primary-foreground/70" strokeWidth={2} />
-                <span className="text-xs font-medium text-primary-foreground/70 uppercase tracking-wide">
+              <div className="flex items-center gap-2 mb-1.5">
+                <Sun className="h-4 w-4 text-primary-foreground/80" strokeWidth={2} />
+                <span className="text-[11px] font-semibold text-primary-foreground/70 uppercase tracking-wider">
                   Clima Hoje · Uberlândia, MG
                 </span>
               </div>
               <div className="flex items-baseline gap-3">
-                <span className="text-4xl font-bold text-primary-foreground font-mono-data">28°C</span>
-                <span className="text-sm text-primary-foreground/60">Parcialmente nublado</span>
+                <span className="text-4xl md:text-5xl font-bold text-primary-foreground font-mono-data">28°</span>
+                <span className="text-sm text-primary-foreground/60 font-medium">Parcialmente nublado</span>
               </div>
             </div>
             <div className="hidden sm:flex items-center gap-6 text-primary-foreground/80">
-              <div className="flex items-center gap-1.5">
-                <Droplets className="h-4 w-4" strokeWidth={2} />
+              <div className="flex items-center gap-2">
+                <Droplets className="h-4 w-4 opacity-70" strokeWidth={2} />
                 <div>
-                  <p className="text-[10px] uppercase tracking-wide opacity-60">Umidade</p>
-                  <p className="text-sm font-semibold font-mono-data">65%</p>
+                  <p className="text-[10px] uppercase tracking-wider opacity-50 font-semibold">Umidade</p>
+                  <p className="text-sm font-bold font-mono-data">65%</p>
                 </div>
               </div>
-              <div className="flex items-center gap-1.5">
-                <Wind className="h-4 w-4" strokeWidth={2} />
+              <div className="h-8 w-px bg-white/10" />
+              <div className="flex items-center gap-2">
+                <Wind className="h-4 w-4 opacity-70" strokeWidth={2} />
                 <div>
-                  <p className="text-[10px] uppercase tracking-wide opacity-60">Vento</p>
-                  <p className="text-sm font-semibold font-mono-data">12 km/h</p>
+                  <p className="text-[10px] uppercase tracking-wider opacity-50 font-semibold">Vento</p>
+                  <p className="text-sm font-bold font-mono-data">12 km/h</p>
                 </div>
               </div>
-              <div className="flex items-center gap-1.5">
-                <Droplets className="h-4 w-4" strokeWidth={2} />
+              <div className="h-8 w-px bg-white/10" />
+              <div className="flex items-center gap-2">
+                <Droplets className="h-4 w-4 opacity-70" strokeWidth={2} />
                 <div>
-                  <p className="text-[10px] uppercase tracking-wide opacity-60">Chuva (7d)</p>
-                  <p className="text-sm font-semibold font-mono-data">45 mm</p>
+                  <p className="text-[10px] uppercase tracking-wider opacity-50 font-semibold">Chuva 7d</p>
+                  <p className="text-sm font-bold font-mono-data">45 mm</p>
                 </div>
               </div>
             </div>
           </div>
           {/* Mobile weather stats */}
-          <div className="flex sm:hidden items-center gap-4 mt-3 text-primary-foreground/80">
-            <div className="flex items-center gap-1">
-              <Droplets className="h-3.5 w-3.5" strokeWidth={2} />
-              <span className="text-xs font-mono-data">65%</span>
+          <div className="flex sm:hidden items-center gap-5 mt-3 text-primary-foreground/80">
+            <div className="flex items-center gap-1.5">
+              <Droplets className="h-3.5 w-3.5 opacity-60" strokeWidth={2} />
+              <span className="text-xs font-mono-data font-semibold">65%</span>
             </div>
-            <div className="flex items-center gap-1">
-              <Wind className="h-3.5 w-3.5" strokeWidth={2} />
-              <span className="text-xs font-mono-data">12 km/h</span>
+            <div className="flex items-center gap-1.5">
+              <Wind className="h-3.5 w-3.5 opacity-60" strokeWidth={2} />
+              <span className="text-xs font-mono-data font-semibold">12 km/h</span>
             </div>
-            <div className="flex items-center gap-1">
-              <Droplets className="h-3.5 w-3.5" strokeWidth={2} />
-              <span className="text-xs font-mono-data">45 mm</span>
+            <div className="flex items-center gap-1.5">
+              <Droplets className="h-3.5 w-3.5 opacity-60" strokeWidth={2} />
+              <span className="text-xs font-mono-data font-semibold">45 mm</span>
             </div>
           </div>
         </div>
@@ -135,16 +139,16 @@ export default function DashboardPage() {
           className="animate-slide-up stagger-2"
         />
         <KPICard
-          title="Máquinas Ativas"
+          title="Máquinas"
           value="12/18"
-          subtitle="66% em operação"
+          subtitle="em operação"
           icon={<Tractor className="h-4 w-4 text-primary" strokeWidth={2.5} />}
           className="animate-slide-up stagger-3"
         />
         <KPICard
           title="Produtividade"
-          value="68,2 sc/ha"
-          subtitle="estimativa safra atual"
+          value="68,2 sc"
+          subtitle="estimativa/ha"
           trend={{ value: "6,5%", positive: true }}
           icon={<Wheat className="h-4 w-4 text-primary" strokeWidth={2.5} />}
           className="animate-slide-up stagger-4"
@@ -156,29 +160,29 @@ export default function DashboardPage() {
         <div className="premium-card p-4 md:p-5">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-sm font-semibold">Fluxo Financeiro</h3>
-              <p className="text-xs text-muted-foreground mt-0.5">Custo vs. Receita por mês</p>
+              <h3 className="text-sm font-bold text-foreground">Fluxo Financeiro</h3>
+              <p className="text-[11px] text-muted-foreground mt-0.5">Custo vs. Receita por mês</p>
             </div>
-            <div className="flex items-center gap-3 text-[11px]">
+            <div className="flex items-center gap-4 text-[11px]">
               <div className="flex items-center gap-1.5">
-                <div className="h-2 w-2 rounded-full bg-financial-pagar" />
-                <span className="text-muted-foreground">Custo</span>
+                <div className="h-2.5 w-2.5 rounded-sm bg-financial-pagar" />
+                <span className="text-muted-foreground font-medium">Custo</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <div className="h-2 w-2 rounded-full bg-primary" />
-                <span className="text-muted-foreground">Receita</span>
+                <div className="h-2.5 w-2.5 rounded-sm bg-primary" />
+                <span className="text-muted-foreground font-medium">Receita</span>
               </div>
             </div>
           </div>
-          <div className="h-[220px] md:h-[260px]">
+          <div className="h-[200px] md:h-[260px]">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={chartData} barGap={2}>
                 <CartesianGrid strokeDasharray="3 3" stroke="hsl(150, 10%, 90%)" vertical={false} />
-                <XAxis dataKey="mes" tick={{ fontSize: 11, fill: 'hsl(160, 8%, 45%)' }} axisLine={false} tickLine={false} />
-                <YAxis tick={{ fontSize: 11, fill: 'hsl(160, 8%, 45%)' }} tickFormatter={(v) => `${(v / 1000).toFixed(0)}k`} axisLine={false} tickLine={false} width={40} />
+                <XAxis dataKey="mes" tick={{ fontSize: 11, fill: 'hsl(160, 8%, 42%)' }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fontSize: 11, fill: 'hsl(160, 8%, 42%)' }} tickFormatter={(v) => `${(v / 1000).toFixed(0)}k`} axisLine={false} tickLine={false} width={38} />
                 <Tooltip content={<CustomTooltip />} />
-                <Bar dataKey="custo" fill="hsl(0, 72%, 51%)" radius={[4, 4, 0, 0]} name="Custo" maxBarSize={32} />
-                <Bar dataKey="receita" fill="hsl(142, 72%, 29%)" radius={[4, 4, 0, 0]} name="Receita" maxBarSize={32} />
+                <Bar dataKey="custo" fill="hsl(0, 72%, 51%)" radius={[4, 4, 0, 0]} name="Custo" maxBarSize={28} />
+                <Bar dataKey="receita" fill="hsl(142, 72%, 29%)" radius={[4, 4, 0, 0]} name="Receita" maxBarSize={28} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -187,37 +191,37 @@ export default function DashboardPage() {
         <div className="premium-card p-4 md:p-5">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-sm font-semibold">Produtividade Histórica</h3>
-              <p className="text-xs text-muted-foreground mt-0.5">Evolução sc/ha por safra</p>
+              <h3 className="text-sm font-bold text-foreground">Produtividade Histórica</h3>
+              <p className="text-[11px] text-muted-foreground mt-0.5">Evolução sc/ha por safra</p>
             </div>
-            <div className="flex items-center gap-3 text-[11px]">
+            <div className="flex items-center gap-4 text-[11px]">
               <div className="flex items-center gap-1.5">
-                <div className="h-2 w-2 rounded-full bg-primary" />
-                <span className="text-muted-foreground">Soja</span>
+                <div className="h-2.5 w-2.5 rounded-sm bg-primary" />
+                <span className="text-muted-foreground font-medium">Soja</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <div className="h-2 w-2 rounded-full bg-status-colheita" />
-                <span className="text-muted-foreground">Milho</span>
+                <div className="h-2.5 w-2.5 rounded-sm bg-status-colheita" />
+                <span className="text-muted-foreground font-medium">Milho</span>
               </div>
             </div>
           </div>
-          <div className="h-[220px] md:h-[260px]">
+          <div className="h-[200px] md:h-[260px]">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={produtividadeData}>
                 <defs>
                   <linearGradient id="gradSoja" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="hsl(142, 72%, 29%)" stopOpacity={0.2} />
+                    <stop offset="5%" stopColor="hsl(142, 72%, 29%)" stopOpacity={0.25} />
                     <stop offset="95%" stopColor="hsl(142, 72%, 29%)" stopOpacity={0} />
                   </linearGradient>
                   <linearGradient id="gradMilho" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="hsl(38, 92%, 50%)" stopOpacity={0.15} />
+                    <stop offset="5%" stopColor="hsl(38, 92%, 50%)" stopOpacity={0.2} />
                     <stop offset="95%" stopColor="hsl(38, 92%, 50%)" stopOpacity={0} />
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" stroke="hsl(150, 10%, 90%)" vertical={false} />
-                <XAxis dataKey="safra" tick={{ fontSize: 11, fill: 'hsl(160, 8%, 45%)' }} axisLine={false} tickLine={false} />
-                <YAxis tick={{ fontSize: 11, fill: 'hsl(160, 8%, 45%)' }} axisLine={false} tickLine={false} width={35} />
-                <Tooltip />
+                <XAxis dataKey="safra" tick={{ fontSize: 11, fill: 'hsl(160, 8%, 42%)' }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fontSize: 11, fill: 'hsl(160, 8%, 42%)' }} axisLine={false} tickLine={false} width={32} />
+                <Tooltip content={<CustomTooltip />} />
                 <Area type="monotone" dataKey="soja" stroke="hsl(142, 72%, 29%)" strokeWidth={2.5} fill="url(#gradSoja)" name="Soja (sc/ha)" dot={{ r: 3, fill: "hsl(142, 72%, 29%)", strokeWidth: 0 }} />
                 <Area type="monotone" dataKey="milho" stroke="hsl(38, 92%, 50%)" strokeWidth={2} fill="url(#gradMilho)" name="Milho (sc/ha)" dot={{ r: 3, fill: "hsl(38, 92%, 50%)", strokeWidth: 0 }} />
               </AreaChart>
@@ -230,57 +234,52 @@ export default function DashboardPage() {
       <div className="premium-card overflow-hidden">
         <div className="flex items-center justify-between p-4 md:p-5 pb-0">
           <div>
-            <h3 className="text-sm font-semibold">Operações em Andamento</h3>
-            <p className="text-xs text-muted-foreground mt-0.5">Últimas atividades de campo</p>
+            <h3 className="text-sm font-bold text-foreground">Operações em Andamento</h3>
+            <p className="text-[11px] text-muted-foreground mt-0.5">Últimas atividades de campo</p>
           </div>
-          <button className="flex items-center gap-1 text-xs font-medium text-primary hover:text-primary/80 transition-colors">
-            Ver todas <ArrowRight className="h-3 w-3" />
+          <button className="flex items-center gap-1.5 text-xs font-semibold text-primary hover:text-primary/80 transition-colors">
+            Ver todas <ArrowRight className="h-3.5 w-3.5" />
           </button>
         </div>
-        <div className="p-4 md:p-5 pt-3">
-          <div className="space-y-2">
-            {recentOps.map((op) => (
-              <div
-                key={op.id}
-                className="flex items-center gap-4 p-3 rounded-lg hover:bg-muted/40 transition-colors cursor-pointer group"
-              >
-                <div className={cn(
-                  "h-9 w-9 rounded-lg flex items-center justify-center shrink-0 text-xs font-bold",
-                  op.status === "em_andamento" ? "bg-status-plantio/10 text-status-plantio" :
-                  op.status === "concluido" ? "bg-status-concluido/10 text-status-concluido" :
-                  op.status === "colheita" ? "bg-status-colheita/10 text-status-colheita" :
-                  "bg-muted text-muted-foreground"
-                )}>
-                  <CalendarCheck className="h-4 w-4" strokeWidth={2} />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium truncate">{op.operacao}</span>
-                  </div>
-                  <span className="text-xs text-muted-foreground">{op.talhao}</span>
-                </div>
-                {/* Progress bar */}
-                {op.progresso > 0 && op.progresso < 100 && (
-                  <div className="hidden sm:flex items-center gap-2 w-24">
-                    <div className="flex-1 h-1.5 bg-muted rounded-full overflow-hidden">
-                      <div
-                        className="h-full rounded-full gradient-primary transition-all duration-500"
-                        style={{ width: `${op.progresso}%` }}
-                      />
-                    </div>
-                    <span className="text-[11px] font-mono-data text-muted-foreground w-8">
-                      {op.progresso}%
-                    </span>
-                  </div>
-                )}
-                <div className="flex items-center gap-3">
-                  <span className="text-[11px] text-muted-foreground font-mono-data hidden md:inline">{op.data}</span>
-                  <StatusBadge status={op.status} />
-                </div>
-                <ArrowRight className="h-4 w-4 text-muted-foreground/0 group-hover:text-muted-foreground transition-colors shrink-0 hidden md:block" />
+        <div className="p-4 md:p-5 pt-3 space-y-1">
+          {recentOps.map((op) => (
+            <div
+              key={op.id}
+              className="flex items-center gap-3 md:gap-4 p-3 rounded-xl hover:bg-accent/30 transition-all cursor-pointer group"
+            >
+              <div className={cn(
+                "h-10 w-10 rounded-xl flex items-center justify-center shrink-0",
+                op.status === "em_andamento" ? "bg-status-plantio/10 text-status-plantio" :
+                op.status === "concluido" ? "bg-status-concluido/10 text-status-concluido" :
+                op.status === "colheita" ? "bg-status-colheita/10 text-status-colheita" :
+                "bg-muted text-muted-foreground"
+              )}>
+                <CalendarCheck className="h-4 w-4" strokeWidth={2} />
               </div>
-            ))}
-          </div>
+              <div className="flex-1 min-w-0">
+                <span className="text-sm font-semibold truncate block text-foreground">{op.operacao}</span>
+                <span className="text-xs text-muted-foreground">{op.talhao}</span>
+              </div>
+              {/* Progress bar */}
+              {op.progresso > 0 && op.progresso < 100 && (
+                <div className="hidden sm:flex items-center gap-2 w-28">
+                  <div className="flex-1 h-1.5 bg-muted rounded-full overflow-hidden">
+                    <div
+                      className="h-full rounded-full gradient-primary transition-all duration-500"
+                      style={{ width: `${op.progresso}%` }}
+                    />
+                  </div>
+                  <span className="text-[11px] font-mono-data text-muted-foreground w-8 text-right font-semibold">
+                    {op.progresso}%
+                  </span>
+                </div>
+              )}
+              <div className="flex items-center gap-3 shrink-0">
+                <span className="text-[11px] text-muted-foreground font-mono-data hidden md:inline">{op.data}</span>
+                <StatusBadge status={op.status} />
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
