@@ -34,12 +34,12 @@ const moreGroups = [
     ],
   },
   {
-    label: "Comercial & Estoque",
+    label: "Financeiro & Comercial",
     items: [
-      { label: "Receber", icon: TrendingUp, path: "/financeiro/receber" },
+      { label: "Contas a Pagar", icon: DollarSign, path: "/financeiro/pagar" },
+      { label: "Contas a Receber", icon: TrendingUp, path: "/financeiro/receber" },
       { label: "Vendas", icon: ShoppingCart, path: "/comercial/vendas" },
       { label: "Compras", icon: ShoppingBag, path: "/comercial/compras" },
-      { label: "Estoque", icon: Package, path: "/estoque" },
       { label: "Catálogo", icon: BookOpen, path: "/estoque/catalogo" },
       { label: "Movimentações", icon: BarChart3, path: "/estoque/movimentacoes" },
     ],
