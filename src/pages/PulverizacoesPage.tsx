@@ -2,7 +2,7 @@ import { PageHeader } from "@/components/PageHeader";
 import { DataTable } from "@/components/DataTable";
 import { StatusBadge } from "@/components/StatusBadge";
 import { Button } from "@/components/ui/button";
-import { Plus, SprayCan } from "lucide-react";
+import { Plus } from "lucide-react";
 
 const pulverizacoes = [
   { id: "1", talhao: "T-01 Cerrado", produto: "Roundup WG", dosagem: "2,5 L/ha", volume: "150 L/ha", operador: "Carlos Mendes", data: "14/03/2026", status: "concluido" as const },
@@ -25,19 +25,9 @@ export default function PulverizacoesPage() {
         }
       />
 
-      <div className="flex items-center gap-4 p-4 premium-card">
-        <div className="h-10 w-10 rounded-xl bg-accent flex items-center justify-center">
-          <SprayCan className="h-5 w-5 text-primary" strokeWidth={2} />
-        </div>
-        <div>
-          <p className="text-sm font-semibold">4 aplicações registradas</p>
-          <p className="text-xs text-muted-foreground">2 concluídas · 2 pendentes</p>
-        </div>
-      </div>
-
       <DataTable
         columns={[
-          { header: "Talhão", accessor: (r) => <span className="font-medium">{r.talhao}</span> },
+          { header: "Talhão", accessor: (r) => <span className="font-semibold">{r.talhao}</span> },
           { header: "Produto", accessor: "produto" },
           { header: "Dosagem", accessor: (r) => <span className="font-mono-data">{r.dosagem}</span>, className: "hidden sm:table-cell" },
           { header: "Volume", accessor: (r) => <span className="font-mono-data text-muted-foreground">{r.volume}</span>, className: "hidden md:table-cell" },
@@ -45,6 +35,15 @@ export default function PulverizacoesPage() {
           { header: "Status", accessor: (r) => <StatusBadge status={r.status} /> },
         ]}
         data={pulverizacoes}
+        mobileCard={{
+          title: (r) => r.produto,
+          subtitle: (r) => r.talhao,
+          badge: (r) => <StatusBadge status={r.status} />,
+          fields: [
+            { label: "Dose", accessor: (r) => <span className="font-mono-data">{r.dosagem}</span> },
+            { label: "Data", accessor: (r) => <span className="font-mono-data">{r.data}</span> },
+          ],
+        }}
       />
     </div>
   );

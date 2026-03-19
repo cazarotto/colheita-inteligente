@@ -26,16 +26,6 @@ export default function OperadoresPage() {
         }
       />
 
-      <div className="flex items-center gap-4 p-4 premium-card">
-        <div className="h-10 w-10 rounded-xl bg-accent flex items-center justify-center">
-          <Users className="h-5 w-5 text-primary" strokeWidth={2} />
-        </div>
-        <div>
-          <p className="text-sm font-semibold">5 operadores cadastrados</p>
-          <p className="text-xs text-muted-foreground">4 ativos · 1 em férias</p>
-        </div>
-      </div>
-
       <DataTable
         columns={[
           { header: "Operador", accessor: (r) => (
@@ -44,7 +34,7 @@ export default function OperadoresPage() {
                 <span className="text-[11px] font-bold text-accent-foreground">{r.iniciais}</span>
               </div>
               <div>
-                <span className="font-medium block">{r.nome}</span>
+                <span className="font-semibold block">{r.nome}</span>
                 <span className="text-[11px] text-muted-foreground md:hidden">{r.funcao}</span>
               </div>
             </div>
@@ -54,14 +44,35 @@ export default function OperadoresPage() {
           { header: "Admissão", accessor: (r) => <span className="font-mono-data text-muted-foreground">{r.admissao}</span>, className: "hidden lg:table-cell" },
           { header: "Status", accessor: (r) => (
             <span className={cn(
-              "px-2.5 py-1 rounded-full text-[11px] font-semibold",
+              "px-2.5 py-1 rounded-full text-[11px] font-semibold inline-flex items-center gap-1.5",
               r.status === "Ativo" ? "bg-status-concluido/10 text-status-concluido" : "bg-status-colheita/10 text-status-colheita"
             )}>
+              <span className={cn("h-1.5 w-1.5 rounded-full", r.status === "Ativo" ? "bg-status-concluido" : "bg-status-colheita")} />
               {r.status}
             </span>
           )},
         ]}
         data={operadores}
+        mobileCard={{
+          title: (r) => r.nome,
+          subtitle: (r) => r.funcao,
+          icon: (r) => (
+            <div className="h-10 w-10 rounded-full bg-accent flex items-center justify-center">
+              <span className="text-xs font-bold text-accent-foreground">{r.iniciais}</span>
+            </div>
+          ),
+          badge: (r) => (
+            <span className={cn(
+              "px-2 py-0.5 rounded-full text-[10px] font-semibold",
+              r.status === "Ativo" ? "bg-status-concluido/10 text-status-concluido" : "bg-status-colheita/10 text-status-colheita"
+            )}>
+              {r.status}
+            </span>
+          ),
+          fields: [
+            { label: "Contato", accessor: (r) => <span className="font-mono-data">{r.contato}</span> },
+          ],
+        }}
       />
     </div>
   );

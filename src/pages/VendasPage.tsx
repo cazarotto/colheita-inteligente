@@ -26,25 +26,13 @@ export default function VendasPage() {
       />
 
       <div className="grid grid-cols-2 gap-3 md:gap-4">
-        <KPICard
-          title="Vendas (safra)"
-          value="R$ 1,63M"
-          subtitle="3 contratos"
-          trend={{ value: "22%", positive: true }}
-          icon={<ShoppingCart className="h-4 w-4 text-primary" strokeWidth={2.5} />}
-        />
-        <KPICard
-          title="Preço Médio Soja"
-          value="R$ 136,50"
-          subtitle="por saca (60 kg)"
-          trend={{ value: "4,2%", positive: true }}
-          icon={<TrendingUp className="h-4 w-4 text-primary" strokeWidth={2.5} />}
-        />
+        <KPICard title="Vendas (safra)" value="R$ 1,63M" subtitle="3 contratos" trend={{ value: "22%", positive: true }} icon={<ShoppingCart className="h-4 w-4 text-primary" strokeWidth={2.5} />} />
+        <KPICard title="Preço Médio Soja" value="R$ 136,50" subtitle="por saca (60 kg)" trend={{ value: "4,2%", positive: true }} icon={<TrendingUp className="h-4 w-4 text-primary" strokeWidth={2.5} />} />
       </div>
 
       <DataTable
         columns={[
-          { header: "Produto", accessor: (r) => <span className="font-medium">{r.produto}</span> },
+          { header: "Produto", accessor: (r) => <span className="font-semibold">{r.produto}</span> },
           { header: "Comprador", accessor: (r) => <span className="text-muted-foreground">{r.comprador}</span> },
           { header: "Qtd.", accessor: (r) => <span className="font-mono-data">{r.quantidade}</span>, className: "hidden sm:table-cell" },
           { header: "Preço", accessor: (r) => <span className="font-mono-data text-muted-foreground">{r.preco}</span>, className: "hidden md:table-cell" },
@@ -52,6 +40,14 @@ export default function VendasPage() {
           { header: "Status", accessor: (r) => <StatusBadge status={r.status} /> },
         ]}
         data={vendas}
+        mobileCard={{
+          title: (r) => `${r.produto} — ${r.comprador}`,
+          subtitle: (r) => `${r.quantidade} · ${r.preco}`,
+          badge: (r) => <StatusBadge status={r.status} />,
+          fields: [
+            { label: "Total", accessor: (r) => <span className="font-mono-data font-semibold">{r.total}</span> },
+          ],
+        }}
       />
     </div>
   );

@@ -28,7 +28,7 @@ export default function OperacoesPage() {
       />
       <DataTable
         columns={[
-          { header: "Operação", accessor: (r) => <span className="font-medium">{r.tipo}</span> },
+          { header: "Operação", accessor: (r) => <span className="font-semibold">{r.tipo}</span> },
           { header: "Talhão", accessor: (r) => <span className="font-mono-data text-muted-foreground">{r.talhao}</span> },
           { header: "Operador", accessor: "operador", className: "hidden md:table-cell" },
           { header: "Máquina", accessor: (r) => <span className="text-muted-foreground">{r.maquina}</span>, className: "hidden lg:table-cell" },
@@ -36,6 +36,15 @@ export default function OperacoesPage() {
           { header: "Status", accessor: (r) => <StatusBadge status={r.status} /> },
         ]}
         data={operacoes}
+        mobileCard={{
+          title: (r) => r.tipo,
+          subtitle: (r) => r.talhao,
+          badge: (r) => <StatusBadge status={r.status} />,
+          fields: [
+            { label: "Operador", accessor: "operador" },
+            { label: "Data", accessor: (r) => <span className="font-mono-data">{r.data}</span> },
+          ],
+        }}
       />
     </div>
   );

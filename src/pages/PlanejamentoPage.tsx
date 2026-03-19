@@ -46,7 +46,7 @@ export default function PlanejamentoPage() {
                 Nova Operação
               </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-lg">
+            <DialogContent className="sm:max-w-lg mx-4">
               <DialogHeader>
                 <DialogTitle className="flex items-center gap-2 text-base">
                   <div className="h-8 w-8 rounded-lg gradient-primary flex items-center justify-center">
@@ -58,25 +58,23 @@ export default function PlanejamentoPage() {
               </DialogHeader>
 
               {/* Step indicator */}
-              <div className="flex items-center gap-2 py-2">
+              <div className="flex items-center gap-1.5 py-2">
                 {steps.map((s, i) => (
-                  <div key={s.num} className="flex items-center gap-2 flex-1">
+                  <div key={s.num} className="flex items-center gap-1.5 flex-1">
                     <button
                       onClick={() => setStep(s.num)}
                       className={cn(
-                        "flex items-center gap-2 px-3 py-2 rounded-lg transition-all text-xs font-medium w-full",
+                        "flex items-center gap-2 px-3 py-2.5 rounded-xl transition-all text-xs font-semibold w-full justify-center",
                         step === s.num
-                          ? "bg-accent text-accent-foreground"
+                          ? "bg-primary text-primary-foreground shadow-sm"
                           : step > s.num
-                          ? "bg-muted text-foreground"
-                          : "text-muted-foreground"
+                          ? "bg-accent text-accent-foreground"
+                          : "bg-muted text-muted-foreground"
                       )}
                     >
-                      <s.icon className="h-3.5 w-3.5 shrink-0" strokeWidth={2} />
-                      <span className="hidden sm:inline">{s.label}</span>
-                      <span className="sm:hidden">{s.num}</span>
+                      <s.icon className="h-3.5 w-3.5 shrink-0" strokeWidth={2.5} />
+                      <span>{s.label}</span>
                     </button>
-                    {i < steps.length - 1 && <div className="h-px w-4 bg-border shrink-0" />}
                   </div>
                 ))}
               </div>
@@ -87,7 +85,7 @@ export default function PlanejamentoPage() {
                     <div className="space-y-2">
                       <Label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Tipo de Operação</Label>
                       <Select>
-                        <SelectTrigger className="h-11"><SelectValue placeholder="Selecione..." /></SelectTrigger>
+                        <SelectTrigger className="h-12"><SelectValue placeholder="Selecione..." /></SelectTrigger>
                         <SelectContent>
                           <SelectItem value="plantio">Plantio</SelectItem>
                           <SelectItem value="adubacao">Adubação</SelectItem>
@@ -100,7 +98,7 @@ export default function PlanejamentoPage() {
                     <div className="space-y-2">
                       <Label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Talhão</Label>
                       <Select>
-                        <SelectTrigger className="h-11"><SelectValue placeholder="Selecione o talhão..." /></SelectTrigger>
+                        <SelectTrigger className="h-12"><SelectValue placeholder="Selecione o talhão..." /></SelectTrigger>
                         <SelectContent>
                           <SelectItem value="t1">T-01 Cerrado (320 ha)</SelectItem>
                           <SelectItem value="t2">T-02 Vargem (180 ha)</SelectItem>
@@ -112,7 +110,7 @@ export default function PlanejamentoPage() {
                     </div>
                     <div className="space-y-2">
                       <Label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Data de Início</Label>
-                      <Input type="date" className="h-11" />
+                      <Input type="date" className="h-12" />
                     </div>
                   </>
                 )}
@@ -121,7 +119,7 @@ export default function PlanejamentoPage() {
                     <div className="space-y-2">
                       <Label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Insumo Principal</Label>
                       <Select>
-                        <SelectTrigger className="h-11"><SelectValue placeholder="Selecione o insumo..." /></SelectTrigger>
+                        <SelectTrigger className="h-12"><SelectValue placeholder="Selecione o insumo..." /></SelectTrigger>
                         <SelectContent>
                           <SelectItem value="semente">Semente TMG 2381</SelectItem>
                           <SelectItem value="map">MAP 10-46-00</SelectItem>
@@ -132,11 +130,11 @@ export default function PlanejamentoPage() {
                     </div>
                     <div className="space-y-2">
                       <Label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Dosagem</Label>
-                      <Input placeholder="Ex: 200 kg/ha" className="h-11" />
+                      <Input placeholder="Ex: 200 kg/ha" className="h-12" />
                     </div>
                     <div className="space-y-2">
                       <Label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Observações</Label>
-                      <Input placeholder="Notas adicionais..." className="h-11" />
+                      <Input placeholder="Notas adicionais..." className="h-12" />
                     </div>
                   </>
                 )}
@@ -145,7 +143,7 @@ export default function PlanejamentoPage() {
                     <div className="space-y-2">
                       <Label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Operador</Label>
                       <Select>
-                        <SelectTrigger className="h-11"><SelectValue placeholder="Selecione o operador..." /></SelectTrigger>
+                        <SelectTrigger className="h-12"><SelectValue placeholder="Selecione o operador..." /></SelectTrigger>
                         <SelectContent>
                           <SelectItem value="joao">João Silva</SelectItem>
                           <SelectItem value="carlos">Carlos Mendes</SelectItem>
@@ -157,7 +155,7 @@ export default function PlanejamentoPage() {
                     <div className="space-y-2">
                       <Label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Máquina</Label>
                       <Select>
-                        <SelectTrigger className="h-11"><SelectValue placeholder="Selecione a máquina..." /></SelectTrigger>
+                        <SelectTrigger className="h-12"><SelectValue placeholder="Selecione a máquina..." /></SelectTrigger>
                         <SelectContent>
                           <SelectItem value="jd8r">John Deere 8R</SelectItem>
                           <SelectItem value="mf8737">MF 8737</SelectItem>
@@ -171,16 +169,16 @@ export default function PlanejamentoPage() {
               </div>
               <DialogFooter className="flex gap-2 pt-2">
                 {step > 1 && (
-                  <Button variant="outline" onClick={() => setStep(step - 1)} className="flex-1 sm:flex-none">
+                  <Button variant="outline" onClick={() => setStep(step - 1)} className="flex-1 h-11">
                     Voltar
                   </Button>
                 )}
                 {step < 3 ? (
-                  <Button onClick={() => setStep(step + 1)} className="flex-1 sm:flex-none">
+                  <Button onClick={() => setStep(step + 1)} className="flex-1 h-11">
                     Próximo
                   </Button>
                 ) : (
-                  <Button onClick={handleSave} className="flex-1 sm:flex-none">
+                  <Button onClick={handleSave} className="flex-1 h-11">
                     Salvar Operação
                   </Button>
                 )}
@@ -191,7 +189,7 @@ export default function PlanejamentoPage() {
       />
       <DataTable
         columns={[
-          { header: "Operação", accessor: (r) => <span className="font-medium">{r.operacao}</span> },
+          { header: "Operação", accessor: (r) => <span className="font-semibold">{r.operacao}</span> },
           { header: "Talhão", accessor: (r) => <span className="font-mono-data text-muted-foreground">{r.talhao}</span> },
           { header: "Insumo", accessor: "insumo", className: "hidden md:table-cell" },
           { header: "Operador", accessor: "operador", className: "hidden lg:table-cell" },
@@ -199,6 +197,15 @@ export default function PlanejamentoPage() {
           { header: "Status", accessor: (r) => <StatusBadge status={r.status} /> },
         ]}
         data={planejamentos}
+        mobileCard={{
+          title: (r) => r.operacao,
+          subtitle: (r) => r.talhao,
+          badge: (r) => <StatusBadge status={r.status} />,
+          fields: [
+            { label: "Insumo", accessor: "insumo" },
+            { label: "Início", accessor: (r) => <span className="font-mono-data">{r.dataInicio}</span> },
+          ],
+        }}
       />
     </div>
   );

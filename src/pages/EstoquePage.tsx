@@ -53,7 +53,7 @@ export default function EstoquePage() {
                   <AlertTriangle className="h-3 w-3 text-financial-pagar" strokeWidth={2.5} />
                 </div>
               )}
-              <span className="font-medium">{r.item}</span>
+              <span className="font-semibold">{r.item}</span>
             </div>
           )},
           { header: "Categoria", accessor: (r) => <span className="text-muted-foreground">{r.categoria}</span>, className: "hidden md:table-cell" },
@@ -64,6 +64,23 @@ export default function EstoquePage() {
           { header: "Local", accessor: (r) => <span className="text-muted-foreground">{r.localizacao}</span>, className: "hidden lg:table-cell" },
         ]}
         data={estoque}
+        mobileCard={{
+          title: (r) => r.item,
+          subtitle: (r) => `${r.categoria} · ${r.localizacao}`,
+          icon: (r) => r.alerta ? (
+            <div className="h-8 w-8 rounded-lg bg-financial-pagar/10 flex items-center justify-center">
+              <AlertTriangle className="h-4 w-4 text-financial-pagar" strokeWidth={2.5} />
+            </div>
+          ) : undefined,
+          badge: (r) => (
+            <span className={cn("font-mono-data font-semibold text-sm", r.alerta && "text-financial-pagar")}>
+              {r.quantidade}
+            </span>
+          ),
+          fields: [
+            { label: "Mínimo", accessor: (r) => <span className="font-mono-data">{r.minimo}</span> },
+          ],
+        }}
       />
     </div>
   );
