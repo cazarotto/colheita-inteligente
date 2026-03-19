@@ -10,9 +10,9 @@ import { cn } from "@/lib/utils";
 
 const tabs = [
   { label: "Painel", icon: LayoutDashboard, path: "/dashboard" },
-  { label: "Safras", icon: Wheat, path: "/safras" },
   { label: "Operações", icon: Tractor, path: "/operacoes" },
-  { label: "Financeiro", icon: DollarSign, path: "/financeiro/pagar" },
+  { label: "Planejamento", icon: CalendarCheck, path: "/planejamento" },
+  { label: "Estoque", icon: Package, path: "/estoque" },
   { label: "Mais", icon: Menu, path: "__more__" },
 ];
 
