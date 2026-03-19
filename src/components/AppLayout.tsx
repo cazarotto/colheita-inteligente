@@ -7,17 +7,26 @@ import { Button } from "@/components/ui/button";
 
 const pageTitles: Record<string, string> = {
   "/dashboard": "Painel",
+  "/dashboard": "Painel",
+  "/inteligencia": "Inteligência",
+  "/relatorio-ia": "Relatório IA",
   "/safras": "Safras",
   "/talhoes": "Talhões",
   "/operacoes": "Operações",
   "/planejamento": "Planejamento",
   "/pulverizacoes": "Pulverizações",
+  "/producao": "Produção",
   "/financeiro/pagar": "Contas a Pagar",
   "/financeiro/receber": "Contas a Receber",
   "/estoque": "Estoque",
+  "/estoque/catalogo": "Catálogo",
+  "/estoque/movimentacoes": "Movimentações",
   "/comercial/vendas": "Vendas",
+  "/comercial/compras": "Compras",
   "/cadastros/operadores": "Operadores",
   "/cadastros/maquinas": "Máquinas",
+  "/documentos": "Documentos",
+  "/anotacoes": "Anotações",
 };
 
 export function AppLayout() {
