@@ -10,7 +10,8 @@ import {
   ShoppingCart,
   Users,
   Wrench,
-  ChevronDown,
+  ChevronRight,
+  Leaf,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
@@ -24,6 +25,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarHeader,
+  SidebarFooter,
   useSidebar,
 } from "@/components/ui/sidebar";
 import {
@@ -31,6 +33,8 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import { cn } from "@/lib/utils";
+import { useState } from "react";
 
 const mainItems = [
   { title: "Painel", url: "/dashboard", icon: LayoutDashboard },
@@ -68,34 +72,57 @@ function SidebarNavGroup({
   const location = useLocation();
   const isActive = (path: string) => location.pathname === path;
   const hasActive = items.some((i) => isActive(i.url));
+  const [open, setOpen] = useState(true);
 
   return (
-    <Collapsible defaultOpen={hasActive || true}>
-      <SidebarGroup>
-        <CollapsibleTrigger className="w-full">
-          <SidebarGroupLabel className="flex items-center justify-between cursor-pointer">
-            {!collapsed && <span>{label}</span>}
-            {!collapsed && <ChevronDown className="h-3 w-3" strokeWidth={2.5} />}
-          </SidebarGroupLabel>
-        </CollapsibleTrigger>
+    <Collapsible open={open} onOpenChange={setOpen} defaultOpen={hasActive || true}>
+      <SidebarGroup className="py-1">
+        {!collapsed && (
+          <CollapsibleTrigger className="w-full group">
+            <SidebarGroupLabel className="flex items-center justify-between cursor-pointer text-[10px] uppercase tracking-[0.1em] font-semibold text-sidebar-muted hover:text-sidebar-foreground transition-colors px-3 py-2">
+              <span>{label}</span>
+              <ChevronRight
+                className={cn(
+                  "h-3 w-3 transition-transform duration-200",
+                  open && "rotate-90"
+                )}
+                strokeWidth={2.5}
+              />
+            </SidebarGroupLabel>
+          </CollapsibleTrigger>
+        )}
         <CollapsibleContent>
           <SidebarGroupContent>
-            <SidebarMenu>
-              {items.map((item) => (
-                <SidebarMenuItem key={item.url}>
-                  <SidebarMenuButton asChild isActive={isActive(item.url)}>
-                    <NavLink
-                      to={item.url}
-                      end
-                      className="hover:bg-accent"
-                      activeClassName="bg-accent text-accent-foreground font-medium"
-                    >
-                      <item.icon className="mr-2 h-4 w-4 shrink-0" strokeWidth={2.5} />
-                      {!collapsed && <span className="text-sm">{item.title}</span>}
-                    </NavLink>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+            <SidebarMenu className="px-2 space-y-0.5">
+              {items.map((item) => {
+                const active = isActive(item.url);
+                return (
+                  <SidebarMenuItem key={item.url}>
+                    <SidebarMenuButton asChild isActive={active} className="h-9">
+                      <NavLink
+                        to={item.url}
+                        end
+                        className={cn(
+                          "flex items-center gap-3 rounded-lg px-3 py-2 text-[13px] font-medium transition-all duration-150",
+                          active
+                            ? "bg-sidebar-accent text-sidebar-accent-foreground shadow-sm"
+                            : "text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50"
+                        )}
+                        activeClassName=""
+                      >
+                        <item.icon
+                          className={cn("h-4 w-4 shrink-0", active && "text-sidebar-primary")}
+                          strokeWidth={active ? 2.5 : 2}
+                        />
+                        {!collapsed && <span>{item.title}</span>}
+                        {active && !collapsed && (
+                          <div className="ml-auto h-1.5 w-1.5 rounded-full bg-sidebar-primary" />
+                        )}
+                      </NavLink>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              })}
             </SidebarMenu>
           </SidebarGroupContent>
         </CollapsibleContent>
@@ -109,30 +136,43 @@ export function AppSidebar() {
   const collapsed = state === "collapsed";
 
   return (
-    <Sidebar collapsible="icon" className="border-r">
-      <SidebarHeader className="p-4">
+    <Sidebar collapsible="icon" className="border-r-0">
+      <SidebarHeader className="p-4 pb-6">
         {!collapsed ? (
-          <div className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-md bg-primary flex items-center justify-center">
-              <Wheat className="h-4 w-4 text-primary-foreground" strokeWidth={2.5} />
+          <div className="flex items-center gap-3">
+            <div className="h-9 w-9 rounded-xl gradient-primary flex items-center justify-center shadow-sm pulse-glow">
+              <Leaf className="h-[18px] w-[18px] text-primary-foreground" strokeWidth={2.5} />
             </div>
             <div>
-              <h1 className="text-sm font-semibold tracking-tight">SafraOS</h1>
-              <p className="text-[11px] text-muted-foreground">Fazenda Santa Fé</p>
+              <h1 className="text-sm font-bold tracking-tight text-sidebar-accent-foreground">SafraOS</h1>
+              <p className="text-[11px] text-sidebar-muted font-medium">Fazenda Santa Fé</p>
             </div>
           </div>
         ) : (
-          <div className="h-8 w-8 rounded-md bg-primary flex items-center justify-center mx-auto">
-            <Wheat className="h-4 w-4 text-primary-foreground" strokeWidth={2.5} />
+          <div className="h-9 w-9 rounded-xl gradient-primary flex items-center justify-center mx-auto shadow-sm">
+            <Leaf className="h-[18px] w-[18px] text-primary-foreground" strokeWidth={2.5} />
           </div>
         )}
       </SidebarHeader>
-      <SidebarContent>
+      <SidebarContent className="py-1">
         <SidebarNavGroup label="Principal" items={mainItems} collapsed={collapsed} />
         <SidebarNavGroup label="Financeiro" items={financeItems} collapsed={collapsed} />
         <SidebarNavGroup label="Comercial" items={commercialItems} collapsed={collapsed} />
         <SidebarNavGroup label="Cadastros" items={registerItems} collapsed={collapsed} />
       </SidebarContent>
+      {!collapsed && (
+        <SidebarFooter className="p-4 border-t border-sidebar-border">
+          <div className="flex items-center gap-3">
+            <div className="h-8 w-8 rounded-full bg-sidebar-accent flex items-center justify-center text-xs font-bold text-sidebar-primary">
+              AF
+            </div>
+            <div className="min-w-0">
+              <p className="text-xs font-medium text-sidebar-accent-foreground truncate">Anderson Ferreira</p>
+              <p className="text-[10px] text-sidebar-muted truncate">Administrador</p>
+            </div>
+          </div>
+        </SidebarFooter>
+      )}
     </Sidebar>
   );
 }
