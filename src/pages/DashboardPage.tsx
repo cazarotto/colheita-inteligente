@@ -1,7 +1,7 @@
 import { PageHeader } from "@/components/PageHeader";
 import { KPICard } from "@/components/KPICard";
 import { StatusBadge } from "@/components/StatusBadge";
-import { Map, DollarSign, Tractor, Wheat, Cloud, Droplets, Thermometer, Wind, ArrowRight, CalendarCheck, Sun } from "lucide-react";
+import { Map, DollarSign, Tractor, Wheat, Droplets, Wind, ArrowRight, CalendarCheck, Sun } from "lucide-react";
 import {
   AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
 } from "recharts";
@@ -36,13 +36,13 @@ const recentOps = [
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (!active || !payload) return null;
   return (
-    <div className="glass-card p-3 !bg-card shadow-lg border text-xs">
-      <p className="font-bold mb-1.5 text-foreground">{label}</p>
+    <div className="glass-card p-3 shadow-lg border text-xs">
+      <p className="font-extrabold mb-1.5 text-foreground">{label}</p>
       {payload.map((p: any) => (
         <div key={p.name} className="flex items-center gap-2 py-0.5">
           <div className="h-2 w-2 rounded-full shrink-0" style={{ background: p.color }} />
-          <span className="text-muted-foreground">{p.name}:</span>
-          <span className="font-mono-data font-semibold text-foreground">
+          <span className="text-muted-foreground font-medium">{p.name}:</span>
+          <span className="font-mono-data font-bold text-foreground">
             R$ {(p.value / 1000).toFixed(0)}k
           </span>
         </div>
@@ -57,64 +57,63 @@ export default function DashboardPage() {
       <PageHeader title="Fazenda Santa Fé" description="Safra 2025/26 · Visão geral da operação" />
 
       {/* Weather Banner */}
-      <div className="premium-card overflow-hidden">
+      <div className="premium-card overflow-hidden animate-slide-up">
         <div className="gradient-primary p-4 md:p-5 relative overflow-hidden">
-          {/* Decorative circles */}
-          <div className="absolute -top-8 -right-8 w-32 h-32 rounded-full bg-white/5" />
-          <div className="absolute -bottom-12 -right-4 w-24 h-24 rounded-full bg-white/5" />
-          
+          <div className="absolute -top-10 -right-10 w-36 h-36 rounded-full bg-white/[0.04]" />
+          <div className="absolute -bottom-14 -right-6 w-28 h-28 rounded-full bg-white/[0.03]" />
+
           <div className="flex items-start justify-between relative">
             <div>
               <div className="flex items-center gap-2 mb-1.5">
-                <Sun className="h-4 w-4 text-primary-foreground/80" strokeWidth={2} />
-                <span className="text-[11px] font-semibold text-primary-foreground/70 uppercase tracking-wider">
+                <Sun className="h-4 w-4 text-primary-foreground/70" strokeWidth={2} />
+                <span className="text-[10px] font-extrabold text-primary-foreground/60 uppercase tracking-[0.14em]">
                   Clima Hoje · Uberlândia, MG
                 </span>
               </div>
               <div className="flex items-baseline gap-3">
-                <span className="text-4xl md:text-5xl font-bold text-primary-foreground font-mono-data">28°</span>
-                <span className="text-sm text-primary-foreground/60 font-medium">Parcialmente nublado</span>
+                <span className="text-4xl md:text-5xl font-extrabold text-primary-foreground font-mono-data">28°</span>
+                <span className="text-sm text-primary-foreground/50 font-semibold">Parcialmente nublado</span>
               </div>
             </div>
-            <div className="hidden sm:flex items-center gap-6 text-primary-foreground/80">
+            <div className="hidden sm:flex items-center gap-6 text-primary-foreground/70">
               <div className="flex items-center gap-2">
-                <Droplets className="h-4 w-4 opacity-70" strokeWidth={2} />
+                <Droplets className="h-4 w-4 opacity-60" strokeWidth={2} />
                 <div>
-                  <p className="text-[10px] uppercase tracking-wider opacity-50 font-semibold">Umidade</p>
-                  <p className="text-sm font-bold font-mono-data">65%</p>
+                  <p className="text-[9px] uppercase tracking-wider opacity-40 font-bold">Umidade</p>
+                  <p className="text-sm font-extrabold font-mono-data">65%</p>
                 </div>
               </div>
               <div className="h-8 w-px bg-white/10" />
               <div className="flex items-center gap-2">
-                <Wind className="h-4 w-4 opacity-70" strokeWidth={2} />
+                <Wind className="h-4 w-4 opacity-60" strokeWidth={2} />
                 <div>
-                  <p className="text-[10px] uppercase tracking-wider opacity-50 font-semibold">Vento</p>
-                  <p className="text-sm font-bold font-mono-data">12 km/h</p>
+                  <p className="text-[9px] uppercase tracking-wider opacity-40 font-bold">Vento</p>
+                  <p className="text-sm font-extrabold font-mono-data">12 km/h</p>
                 </div>
               </div>
               <div className="h-8 w-px bg-white/10" />
               <div className="flex items-center gap-2">
-                <Droplets className="h-4 w-4 opacity-70" strokeWidth={2} />
+                <Droplets className="h-4 w-4 opacity-60" strokeWidth={2} />
                 <div>
-                  <p className="text-[10px] uppercase tracking-wider opacity-50 font-semibold">Chuva 7d</p>
-                  <p className="text-sm font-bold font-mono-data">45 mm</p>
+                  <p className="text-[9px] uppercase tracking-wider opacity-40 font-bold">Chuva 7d</p>
+                  <p className="text-sm font-extrabold font-mono-data">45 mm</p>
                 </div>
               </div>
             </div>
           </div>
           {/* Mobile weather stats */}
-          <div className="flex sm:hidden items-center gap-5 mt-3 text-primary-foreground/80">
+          <div className="flex sm:hidden items-center gap-5 mt-3 text-primary-foreground/70">
             <div className="flex items-center gap-1.5">
-              <Droplets className="h-3.5 w-3.5 opacity-60" strokeWidth={2} />
-              <span className="text-xs font-mono-data font-semibold">65%</span>
+              <Droplets className="h-3.5 w-3.5 opacity-50" strokeWidth={2} />
+              <span className="text-xs font-mono-data font-bold">65%</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <Wind className="h-3.5 w-3.5 opacity-60" strokeWidth={2} />
-              <span className="text-xs font-mono-data font-semibold">12 km/h</span>
+              <Wind className="h-3.5 w-3.5 opacity-50" strokeWidth={2} />
+              <span className="text-xs font-mono-data font-bold">12 km/h</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <Droplets className="h-3.5 w-3.5 opacity-60" strokeWidth={2} />
-              <span className="text-xs font-mono-data font-semibold">45 mm</span>
+              <Droplets className="h-3.5 w-3.5 opacity-50" strokeWidth={2} />
+              <span className="text-xs font-mono-data font-bold">45 mm</span>
             </div>
           </div>
         </div>
@@ -157,20 +156,20 @@ export default function DashboardPage() {
 
       {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <div className="premium-card p-4 md:p-5">
+        <div className="premium-card p-4 md:p-5 animate-fade-in-up" style={{ animationDelay: '200ms' }}>
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-sm font-bold text-foreground">Fluxo Financeiro</h3>
-              <p className="text-[11px] text-muted-foreground mt-0.5">Custo vs. Receita por mês</p>
+              <h3 className="text-sm font-extrabold text-foreground">Fluxo Financeiro</h3>
+              <p className="text-[11px] text-muted-foreground mt-0.5 font-medium">Custo vs. Receita por mês</p>
             </div>
             <div className="flex items-center gap-4 text-[11px]">
               <div className="flex items-center gap-1.5">
                 <div className="h-2.5 w-2.5 rounded-sm bg-financial-pagar" />
-                <span className="text-muted-foreground font-medium">Custo</span>
+                <span className="text-muted-foreground font-semibold">Custo</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <div className="h-2.5 w-2.5 rounded-sm bg-primary" />
-                <span className="text-muted-foreground font-medium">Receita</span>
+                <span className="text-muted-foreground font-semibold">Receita</span>
               </div>
             </div>
           </div>
@@ -178,8 +177,8 @@ export default function DashboardPage() {
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={chartData} barGap={2}>
                 <CartesianGrid strokeDasharray="3 3" stroke="hsl(150, 10%, 90%)" vertical={false} />
-                <XAxis dataKey="mes" tick={{ fontSize: 11, fill: 'hsl(160, 8%, 42%)' }} axisLine={false} tickLine={false} />
-                <YAxis tick={{ fontSize: 11, fill: 'hsl(160, 8%, 42%)' }} tickFormatter={(v) => `${(v / 1000).toFixed(0)}k`} axisLine={false} tickLine={false} width={38} />
+                <XAxis dataKey="mes" tick={{ fontSize: 11, fill: 'hsl(160, 10%, 38%)' }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fontSize: 11, fill: 'hsl(160, 10%, 38%)' }} tickFormatter={(v) => `${(v / 1000).toFixed(0)}k`} axisLine={false} tickLine={false} width={38} />
                 <Tooltip content={<CustomTooltip />} />
                 <Bar dataKey="custo" fill="hsl(0, 72%, 51%)" radius={[4, 4, 0, 0]} name="Custo" maxBarSize={28} />
                 <Bar dataKey="receita" fill="hsl(142, 72%, 29%)" radius={[4, 4, 0, 0]} name="Receita" maxBarSize={28} />
@@ -188,20 +187,20 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        <div className="premium-card p-4 md:p-5">
+        <div className="premium-card p-4 md:p-5 animate-fade-in-up" style={{ animationDelay: '280ms' }}>
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-sm font-bold text-foreground">Produtividade Histórica</h3>
-              <p className="text-[11px] text-muted-foreground mt-0.5">Evolução sc/ha por safra</p>
+              <h3 className="text-sm font-extrabold text-foreground">Produtividade Histórica</h3>
+              <p className="text-[11px] text-muted-foreground mt-0.5 font-medium">Evolução sc/ha por safra</p>
             </div>
             <div className="flex items-center gap-4 text-[11px]">
               <div className="flex items-center gap-1.5">
                 <div className="h-2.5 w-2.5 rounded-sm bg-primary" />
-                <span className="text-muted-foreground font-medium">Soja</span>
+                <span className="text-muted-foreground font-semibold">Soja</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <div className="h-2.5 w-2.5 rounded-sm bg-status-colheita" />
-                <span className="text-muted-foreground font-medium">Milho</span>
+                <span className="text-muted-foreground font-semibold">Milho</span>
               </div>
             </div>
           </div>
@@ -219,8 +218,8 @@ export default function DashboardPage() {
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" stroke="hsl(150, 10%, 90%)" vertical={false} />
-                <XAxis dataKey="safra" tick={{ fontSize: 11, fill: 'hsl(160, 8%, 42%)' }} axisLine={false} tickLine={false} />
-                <YAxis tick={{ fontSize: 11, fill: 'hsl(160, 8%, 42%)' }} axisLine={false} tickLine={false} width={32} />
+                <XAxis dataKey="safra" tick={{ fontSize: 11, fill: 'hsl(160, 10%, 38%)' }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fontSize: 11, fill: 'hsl(160, 10%, 38%)' }} axisLine={false} tickLine={false} width={32} />
                 <Tooltip content={<CustomTooltip />} />
                 <Area type="monotone" dataKey="soja" stroke="hsl(142, 72%, 29%)" strokeWidth={2.5} fill="url(#gradSoja)" name="Soja (sc/ha)" dot={{ r: 3, fill: "hsl(142, 72%, 29%)", strokeWidth: 0 }} />
                 <Area type="monotone" dataKey="milho" stroke="hsl(38, 92%, 50%)" strokeWidth={2} fill="url(#gradMilho)" name="Milho (sc/ha)" dot={{ r: 3, fill: "hsl(38, 92%, 50%)", strokeWidth: 0 }} />
@@ -231,24 +230,24 @@ export default function DashboardPage() {
       </div>
 
       {/* Recent Operations */}
-      <div className="premium-card overflow-hidden">
+      <div className="premium-card overflow-hidden animate-fade-in-up" style={{ animationDelay: '350ms' }}>
         <div className="flex items-center justify-between p-4 md:p-5 pb-0">
           <div>
-            <h3 className="text-sm font-bold text-foreground">Operações em Andamento</h3>
-            <p className="text-[11px] text-muted-foreground mt-0.5">Últimas atividades de campo</p>
+            <h3 className="text-sm font-extrabold text-foreground">Operações em Andamento</h3>
+            <p className="text-[11px] text-muted-foreground mt-0.5 font-medium">Últimas atividades de campo</p>
           </div>
-          <button className="flex items-center gap-1.5 text-xs font-semibold text-primary hover:text-primary/80 transition-colors">
+          <button className="flex items-center gap-1.5 text-xs font-bold text-primary hover:text-primary/80 transition-colors duration-200">
             Ver todas <ArrowRight className="h-3.5 w-3.5" />
           </button>
         </div>
-        <div className="p-4 md:p-5 pt-3 space-y-1">
-          {recentOps.map((op) => (
+        <div className="p-4 md:p-5 pt-3 space-y-0.5">
+          {recentOps.map((op, idx) => (
             <div
               key={op.id}
-              className="flex items-center gap-3 md:gap-4 p-3 rounded-xl hover:bg-accent/30 transition-all cursor-pointer group"
+              className="flex items-center gap-3 md:gap-4 p-3 rounded-xl hover:bg-accent/20 transition-all duration-200 cursor-pointer group"
             >
               <div className={cn(
-                "h-10 w-10 rounded-xl flex items-center justify-center shrink-0",
+                "h-10 w-10 rounded-xl flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-105",
                 op.status === "em_andamento" ? "bg-status-plantio/10 text-status-plantio" :
                 op.status === "concluido" ? "bg-status-concluido/10 text-status-concluido" :
                 op.status === "colheita" ? "bg-status-colheita/10 text-status-colheita" :
@@ -257,25 +256,24 @@ export default function DashboardPage() {
                 <CalendarCheck className="h-4 w-4" strokeWidth={2} />
               </div>
               <div className="flex-1 min-w-0">
-                <span className="text-sm font-semibold truncate block text-foreground">{op.operacao}</span>
-                <span className="text-xs text-muted-foreground">{op.talhao}</span>
+                <span className="text-sm font-bold truncate block text-foreground">{op.operacao}</span>
+                <span className="text-xs text-muted-foreground font-medium">{op.talhao}</span>
               </div>
-              {/* Progress bar */}
               {op.progresso > 0 && op.progresso < 100 && (
                 <div className="hidden sm:flex items-center gap-2 w-28">
                   <div className="flex-1 h-1.5 bg-muted rounded-full overflow-hidden">
                     <div
-                      className="h-full rounded-full gradient-primary transition-all duration-500"
+                      className="h-full rounded-full gradient-primary transition-all duration-700 ease-out"
                       style={{ width: `${op.progresso}%` }}
                     />
                   </div>
-                  <span className="text-[11px] font-mono-data text-muted-foreground w-8 text-right font-semibold">
+                  <span className="text-[11px] font-mono-data text-muted-foreground w-8 text-right font-bold">
                     {op.progresso}%
                   </span>
                 </div>
               )}
               <div className="flex items-center gap-3 shrink-0">
-                <span className="text-[11px] text-muted-foreground font-mono-data hidden md:inline">{op.data}</span>
+                <span className="text-[11px] text-muted-foreground font-mono-data hidden md:inline font-semibold">{op.data}</span>
                 <StatusBadge status={op.status} />
               </div>
             </div>

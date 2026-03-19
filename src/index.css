@@ -7,62 +7,62 @@
 @layer base {
   :root {
     --background: 150 10% 97%;
-    --foreground: 160 25% 8%;
+    --foreground: 160 30% 6%;
 
     --card: 0 0% 100%;
-    --card-foreground: 160 25% 8%;
+    --card-foreground: 160 30% 6%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 160 25% 8%;
+    --popover-foreground: 160 30% 6%;
 
     --primary: 142 72% 29%;
     --primary-foreground: 0 0% 100%;
-
     --primary-glow: 142 65% 42%;
 
-    --secondary: 150 8% 94%;
-    --secondary-foreground: 160 15% 20%;
+    --secondary: 150 8% 93%;
+    --secondary-foreground: 160 18% 18%;
 
-    --muted: 150 8% 94%;
-    --muted-foreground: 160 8% 42%;
+    --muted: 150 8% 93%;
+    --muted-foreground: 160 10% 38%;
 
     --accent: 142 50% 94%;
-    --accent-foreground: 142 72% 20%;
+    --accent-foreground: 142 72% 18%;
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 150 10% 89%;
-    --input: 150 10% 87%;
+    --border: 150 10% 87%;
+    --input: 150 10% 85%;
     --ring: 142 72% 29%;
 
     --radius: 0.625rem;
 
-    /* Sidebar — deep, rich dark with green undertone for contrast */
-    --sidebar-background: 152 22% 5%;
-    --sidebar-foreground: 150 10% 65%;
+    /* Sidebar — deep rich dark */
+    --sidebar-background: 152 28% 4%;
+    --sidebar-foreground: 150 10% 58%;
     --sidebar-primary: 142 72% 48%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 150 18% 11%;
+    --sidebar-accent: 150 20% 10%;
     --sidebar-accent-foreground: 150 10% 95%;
-    --sidebar-border: 150 14% 13%;
+    --sidebar-border: 150 16% 12%;
     --sidebar-ring: 142 72% 48%;
-    --sidebar-muted: 150 8% 40%;
+    --sidebar-muted: 150 8% 36%;
 
     /* Status */
     --status-plantio: 217 91% 60%;
     --status-colheita: 38 92% 50%;
     --status-concluido: 142 72% 35%;
-    --status-pendente: 220 13% 60%;
+    --status-pendente: 220 13% 55%;
 
     /* Financial */
     --financial-pagar: 0 72% 51%;
     --financial-receber: 142 72% 35%;
 
     /* Elevation */
-    --shadow-sm: 0 1px 3px 0 hsl(160 20% 10% / 0.04), 0 1px 2px -1px hsl(160 20% 10% / 0.03);
-    --shadow-md: 0 4px 16px -3px hsl(160 20% 10% / 0.1), 0 2px 4px -2px hsl(160 20% 10% / 0.05);
-    --shadow-lg: 0 16px 40px -8px hsl(160 20% 10% / 0.14), 0 4px 12px -4px hsl(160 20% 10% / 0.06);
+    --shadow-xs: 0 1px 2px 0 hsl(160 20% 10% / 0.03);
+    --shadow-sm: 0 1px 3px 0 hsl(160 20% 10% / 0.05), 0 1px 2px -1px hsl(160 20% 10% / 0.04);
+    --shadow-md: 0 4px 16px -3px hsl(160 20% 10% / 0.1), 0 2px 6px -2px hsl(160 20% 10% / 0.06);
+    --shadow-lg: 0 16px 40px -8px hsl(160 20% 10% / 0.14), 0 4px 12px -4px hsl(160 20% 10% / 0.07);
     --shadow-glow: 0 0 24px -4px hsl(142 72% 29% / 0.3);
 
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
@@ -100,13 +100,15 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply tracking-tight font-semibold;
+    @apply tracking-tight font-semibold text-foreground;
   }
 
-  /* Custom scrollbar */
+  /* Refined scrollbar */
   ::-webkit-scrollbar {
     width: 5px;
     height: 5px;
@@ -130,22 +132,23 @@
   }
 
   .text-kpi {
-    @apply text-2xl md:text-[28px] font-bold tracking-tight;
+    @apply text-2xl md:text-[28px] font-extrabold tracking-tight;
     font-family: 'Inter', system-ui;
     font-variant-numeric: tabular-nums;
   }
 
   .glass-card {
-    @apply bg-card/80 backdrop-blur-md border rounded-xl;
+    @apply bg-card/85 backdrop-blur-xl border rounded-xl;
     box-shadow: var(--shadow-sm);
   }
 
   .premium-card {
-    @apply bg-card border rounded-xl transition-all duration-200;
+    @apply bg-card border rounded-xl transition-all duration-300;
     box-shadow: var(--shadow-sm);
   }
   .premium-card:hover {
     box-shadow: var(--shadow-md);
+    @apply border-border/80;
   }
 
   .gradient-primary {
@@ -153,11 +156,11 @@
   }
 
   .gradient-dark {
-    background: linear-gradient(160deg, hsl(152 22% 5%), hsl(150 18% 9%));
+    background: linear-gradient(160deg, hsl(152 28% 4%), hsl(150 20% 8%));
   }
 
   .gradient-sidebar {
-    background: linear-gradient(180deg, hsl(152 22% 6%), hsl(152 22% 4%));
+    background: linear-gradient(180deg, hsl(152 28% 5%), hsl(152 28% 3%));
   }
 
   .text-gradient {
@@ -171,21 +174,26 @@
     animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
 
-  .stagger-1 { animation-delay: 60ms; }
-  .stagger-2 { animation-delay: 120ms; }
-  .stagger-3 { animation-delay: 180ms; }
-  .stagger-4 { animation-delay: 240ms; }
+  .stagger-1 { animation-delay: 50ms; }
+  .stagger-2 { animation-delay: 100ms; }
+  .stagger-3 { animation-delay: 150ms; }
+  .stagger-4 { animation-delay: 200ms; }
 
   /* Sidebar active glow */
   .sidebar-active-glow {
-    box-shadow: inset 3px 0 0 hsl(var(--sidebar-primary)), 0 0 12px -4px hsl(var(--sidebar-primary) / 0.2);
+    box-shadow: inset 3px 0 0 hsl(var(--sidebar-primary)), 0 0 16px -6px hsl(var(--sidebar-primary) / 0.25);
+  }
+
+  /* Safe area for bottom nav */
+  .pb-safe {
+    padding-bottom: max(env(safe-area-inset-bottom), 0px);
   }
 }
 
 @keyframes slideUp {
   from {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
@@ -199,17 +207,22 @@
 }
 
 @keyframes pulseGlow {
-  0%, 100% { box-shadow: 0 0 0 0 hsl(142 72% 29% / 0.2); }
+  0%, 100% { box-shadow: 0 0 0 0 hsl(142 72% 29% / 0.15); }
   50% { box-shadow: 0 0 20px 4px hsl(142 72% 29% / 0.2); }
 }
 
 @keyframes breathe {
-  0%, 100% { opacity: 0.6; }
+  0%, 100% { opacity: 0.5; }
   50% { opacity: 1; }
 }
 
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .shimmer {
-  background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.08), transparent);
+  background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.06), transparent);
   background-size: 200% 100%;
   animation: shimmer 2s infinite;
 }
@@ -219,5 +232,9 @@
 }
 
 .breathe {
-  animation: breathe 3s ease-in-out infinite;
+  animation: breathe 2.5s ease-in-out infinite;
+}
+
+.animate-fade-in-up {
+  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }

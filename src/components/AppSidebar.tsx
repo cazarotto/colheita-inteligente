@@ -1,50 +1,17 @@
 import {
-  LayoutDashboard,
-  Wheat,
-  Map,
-  Tractor,
-  CalendarCheck,
-  Droplets,
-  DollarSign,
-  Package,
-  ShoppingCart,
-  Users,
-  Wrench,
-  ChevronRight,
-  Leaf,
-  Brain,
-  FileBarChart,
-  Factory,
-  ShoppingBag,
-  BookOpen,
-  BarChart3,
-  FileText,
-  StickyNote,
-  TrendingUp,
-  Clock,
-  LogOut,
-  Settings,
+  LayoutDashboard, Wheat, Map, Tractor, CalendarCheck, Droplets,
+  DollarSign, Package, ShoppingCart, Users, Wrench, ChevronRight,
+  Leaf, Brain, FileBarChart, Factory, ShoppingBag, BookOpen, BarChart3,
+  FileText, StickyNote, TrendingUp, Clock, Settings,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
 import {
-  Sidebar,
-  SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarHeader,
-  SidebarFooter,
-  useSidebar,
+  Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent,
+  SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem,
+  SidebarHeader, SidebarFooter, useSidebar,
 } from "@/components/ui/sidebar";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 
@@ -90,10 +57,7 @@ const otherItems = [
 ];
 
 function SidebarNavGroup({
-  label,
-  items,
-  collapsed,
-  defaultOpen: defaultOpenProp,
+  label, items, collapsed, defaultOpen: defaultOpenProp,
 }: {
   label: string;
   items: { title: string; url: string; icon: React.ElementType }[];
@@ -109,14 +73,11 @@ function SidebarNavGroup({
     <Collapsible open={open} onOpenChange={setOpen}>
       <SidebarGroup className="py-0.5">
         {!collapsed && (
-          <CollapsibleTrigger className="w-full group">
-            <SidebarGroupLabel className="flex items-center justify-between cursor-pointer text-[10px] uppercase tracking-[0.14em] font-bold text-sidebar-muted/50 hover:text-sidebar-muted/80 transition-colors px-4 py-2 mb-0.5">
+          <CollapsibleTrigger className="w-full group/label">
+            <SidebarGroupLabel className="flex items-center justify-between cursor-pointer text-[10px] uppercase tracking-[0.14em] font-bold text-sidebar-muted/40 hover:text-sidebar-muted/70 transition-colors duration-200 px-4 py-2 mb-0.5">
               <span>{label}</span>
               <ChevronRight
-                className={cn(
-                  "h-3 w-3 transition-transform duration-200",
-                  open && "rotate-90"
-                )}
+                className={cn("h-3 w-3 transition-transform duration-200", open && "rotate-90")}
                 strokeWidth={2.5}
               />
             </SidebarGroupLabel>
@@ -134,23 +95,21 @@ function SidebarNavGroup({
                         to={item.url}
                         end
                         className={cn(
-                          "flex items-center gap-3 rounded-lg px-3 py-2 text-[13px] font-medium transition-all duration-150 relative",
+                          "flex items-center gap-3 rounded-lg px-3 py-2 text-[13px] font-medium transition-all duration-200 relative",
                           active
-                            ? "bg-sidebar-primary/12 text-sidebar-primary sidebar-active-glow"
-                            : "text-sidebar-foreground hover:text-sidebar-accent-foreground hover:bg-sidebar-accent/60"
+                            ? "bg-sidebar-primary/15 text-sidebar-primary sidebar-active-glow font-semibold"
+                            : "text-sidebar-foreground hover:text-sidebar-accent-foreground hover:bg-sidebar-accent/50"
                         )}
                         activeClassName=""
                       >
                         <item.icon
                           className={cn(
-                            "h-[17px] w-[17px] shrink-0 transition-colors",
-                            active ? "text-sidebar-primary" : "text-sidebar-muted"
+                            "h-[17px] w-[17px] shrink-0 transition-all duration-200",
+                            active ? "text-sidebar-primary drop-shadow-[0_0_6px_hsl(142,72%,48%/0.4)]" : "text-sidebar-muted"
                           )}
                           strokeWidth={active ? 2.5 : 1.7}
                         />
-                        {!collapsed && (
-                          <span className={cn(active && "font-semibold")}>{item.title}</span>
-                        )}
+                        {!collapsed && <span>{item.title}</span>}
                         {active && !collapsed && (
                           <div className="ml-auto h-1.5 w-1.5 rounded-full bg-sidebar-primary breathe" />
                         )}
@@ -176,16 +135,16 @@ export function AppSidebar() {
       <SidebarHeader className="p-4 pb-3">
         {!collapsed ? (
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-xl gradient-primary flex items-center justify-center shadow-md pulse-glow">
+            <div className="h-10 w-10 rounded-xl gradient-primary flex items-center justify-center shadow-lg pulse-glow">
               <Leaf className="h-5 w-5 text-primary-foreground" strokeWidth={2.5} />
             </div>
             <div>
-              <h1 className="text-[15px] font-bold tracking-tight text-sidebar-accent-foreground">SafraOS</h1>
-              <p className="text-[10px] text-sidebar-muted font-medium tracking-wide">Gestão Agrícola Inteligente</p>
+              <h1 className="text-[15px] font-extrabold tracking-tight text-sidebar-accent-foreground">SafraOS</h1>
+              <p className="text-[10px] text-sidebar-muted/60 font-medium tracking-wide">Gestão Agrícola Inteligente</p>
             </div>
           </div>
         ) : (
-          <div className="h-10 w-10 rounded-xl gradient-primary flex items-center justify-center mx-auto shadow-md">
+          <div className="h-10 w-10 rounded-xl gradient-primary flex items-center justify-center mx-auto shadow-lg">
             <Leaf className="h-5 w-5 text-primary-foreground" strokeWidth={2.5} />
           </div>
         )}
@@ -193,28 +152,31 @@ export function AppSidebar() {
 
       {/* Safra Ativa Card */}
       {!collapsed && (
-        <div className="mx-3 mt-1 mb-2 p-3 rounded-xl bg-sidebar-accent/90 border border-sidebar-border/80">
-          <div className="flex items-center gap-1.5 mb-1.5">
-            <div className="h-2 w-2 rounded-full bg-sidebar-primary animate-pulse" />
-            <span className="text-[9px] uppercase tracking-[0.16em] font-bold text-sidebar-primary">Safra Ativa</span>
-          </div>
-          <p className="text-[13px] font-semibold text-sidebar-accent-foreground leading-tight">Soja Temporada 2026</p>
-          <div className="flex items-center gap-3 mt-2">
-            <div className="flex items-center gap-1 text-[10px] text-sidebar-muted">
-              <Clock className="h-3 w-3" strokeWidth={2} />
-              <span>1d atrás</span>
+        <div className="mx-3 mt-1 mb-3 p-3.5 rounded-xl bg-sidebar-accent border border-sidebar-border/60 relative overflow-hidden">
+          {/* Subtle gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-sidebar-primary/5 to-transparent pointer-events-none" />
+          <div className="relative">
+            <div className="flex items-center gap-1.5 mb-2">
+              <div className="h-2 w-2 rounded-full bg-sidebar-primary animate-pulse shadow-[0_0_8px_hsl(142,72%,48%/0.5)]" />
+              <span className="text-[9px] uppercase tracking-[0.16em] font-extrabold text-sidebar-primary">Safra Ativa</span>
             </div>
-            <div className="h-3 w-px bg-sidebar-border" />
-            <span className="text-[10px] text-sidebar-primary font-medium">Em Andamento</span>
-          </div>
-          {/* Mini progress */}
-          <div className="mt-2.5 h-1 rounded-full bg-sidebar-border overflow-hidden">
-            <div className="h-full w-[35%] rounded-full gradient-primary" />
+            <p className="text-[13px] font-bold text-sidebar-accent-foreground leading-tight">Soja Temporada 2026</p>
+            <div className="flex items-center gap-3 mt-2">
+              <div className="flex items-center gap-1 text-[10px] text-sidebar-muted">
+                <Clock className="h-3 w-3" strokeWidth={2} />
+                <span>1d atrás</span>
+              </div>
+              <div className="h-3 w-px bg-sidebar-border" />
+              <span className="text-[10px] text-sidebar-primary font-bold">Em Andamento</span>
+            </div>
+            <div className="mt-3 h-1.5 rounded-full bg-sidebar-border/60 overflow-hidden">
+              <div className="h-full w-[35%] rounded-full gradient-primary shadow-[0_0_8px_hsl(142,72%,48%/0.3)] transition-all duration-1000" />
+            </div>
           </div>
         </div>
       )}
 
-      <SidebarContent className="py-1.5">
+      <SidebarContent className="py-1">
         <SidebarNavGroup label="Principal" items={mainItems} collapsed={collapsed} defaultOpen={true} />
         <SidebarNavGroup label="Produção" items={producaoItems} collapsed={collapsed} defaultOpen={true} />
         <SidebarNavGroup label="Financeiro" items={financeItems} collapsed={collapsed} defaultOpen={true} />
@@ -225,16 +187,16 @@ export function AppSidebar() {
       </SidebarContent>
 
       {!collapsed && (
-        <SidebarFooter className="p-3 border-t border-sidebar-border/60">
+        <SidebarFooter className="p-3 border-t border-sidebar-border/40">
           <div className="flex items-center gap-3">
-            <div className="h-9 w-9 rounded-full gradient-primary flex items-center justify-center text-[11px] font-bold text-primary-foreground shadow-sm">
+            <div className="h-9 w-9 rounded-full gradient-primary flex items-center justify-center text-[11px] font-extrabold text-primary-foreground shadow-md">
               AF
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-[13px] font-semibold text-sidebar-accent-foreground truncate">Anderson Ferreira</p>
-              <p className="text-[10px] text-sidebar-muted truncate">Administrador</p>
+              <p className="text-[13px] font-bold text-sidebar-accent-foreground truncate">Anderson Ferreira</p>
+              <p className="text-[10px] text-sidebar-muted/60 truncate">Administrador</p>
             </div>
-            <button className="h-8 w-8 rounded-lg flex items-center justify-center text-sidebar-muted hover:text-sidebar-accent-foreground hover:bg-sidebar-accent transition-colors">
+            <button className="h-8 w-8 rounded-lg flex items-center justify-center text-sidebar-muted/50 hover:text-sidebar-accent-foreground hover:bg-sidebar-accent transition-all duration-200">
               <Settings className="h-4 w-4" strokeWidth={1.8} />
             </button>
           </div>
